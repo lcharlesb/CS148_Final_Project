@@ -90,7 +90,7 @@ if (isset($_POST["btnSubmit"])) {
                 }
                 
                 // Go to next page
-                header("Location: selection.php?username='" . $username . "'");
+                header("Location: profile-form.php?username='" . $username . "'");
 
             } else { 
                 

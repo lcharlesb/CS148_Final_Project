@@ -146,7 +146,7 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         <label> Last Name </label><br> 
             <input <?php if ($lastNameERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldLastName'] . '"';} else if (isset($_POST["txtLastName"])) { print 'value="' . $lastName . '"';}?>><br>
         <label> Bio </label><br> 
-            <input <?php if ($bioERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldBio'] . '"';} else if (isset($_POST["txtBio"])) { print 'value="' . $bio . '"';}?>><br>
+        <textarea <?php if ($bioERROR){print' required class="mistake"';} ?> name="txtBio" rows="10" cols="40"><?php if (!empty($fnkUsername)){echo $profileData[0]['fldBio'];} else if (isset($_POST["txtBio"])) { echo $bio;}?></textarea><br>
         <label> Preference: </label><br>
         <input id = "radioButton1" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
         <label for= "radioButton1">Male</label><br>
