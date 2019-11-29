@@ -26,8 +26,8 @@ if ($thisDatabaseReader->querySecurityOk($possibleUsernamesQuery, 0)) {
 if (isset($_POST["btnSubmit"])) {
     
     // Get values from form
-    $username = htmlentities($_POST["username"], ENT_QUOTES, "UTF-8");      
-    $password = htmlentities($_POST["password"], ENT_QUOTES, "UTF-8");  
+    $username = htmlentities($_POST["fldUsername"], ENT_QUOTES, "UTF-8");      
+    $password = htmlentities($_POST["fldPassword"], ENT_QUOTES, "UTF-8");  
     $password = hash($password);
 
     // Validate form elements. If invalid, throw error.
@@ -74,7 +74,6 @@ if (isset($_POST["btnSubmit"])) {
     
 }
 
-
 ?>
 <main>
     
@@ -109,11 +108,11 @@ if (isset($_POST["btnSubmit"])) {
               method="post">
             
             <fieldset>
-                <input type="text" name="username" placeholder="Username">
+                <input type="text" name="fldUsername" placeholder="Username">
             </fieldset>
             <fieldset>
                 <legend>Password</legend>
-                <input type="text" name="password" placeholder="Password">
+                <input type="text" name="fldPassword" placeholder="Password">
             </fieldset>
             <fieldset>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
