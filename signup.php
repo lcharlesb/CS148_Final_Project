@@ -29,9 +29,8 @@ if (isset($_POST["btnSubmit"])) {
     // Get values from form
     $username = htmlentities($_POST["fldUsername"], ENT_QUOTES, "UTF-8");      
     $password = htmlentities($_POST["fldPassword"], ENT_QUOTES, "UTF-8");  
-    $passwordConfirm = htmlentities($_POST["fldPasswordConfirm"], ENT_QUOTES, "UTF-8");  
+    $passwordConfirm = htmlentities($_POST["fldPasswordConfirm"], ENT_QUOTES, "UTF-8");
     $password = hashPassword($password);
-    $passwordConfirm = hashPassword($passwordConfirm);
     
     // Validate form elements. If invalid, throw error.
     $login_array_for_validation = array();
@@ -58,7 +57,7 @@ if (isset($_POST["btnSubmit"])) {
         if ($password == "") {
             $errorMsg[] = "Please enter a password.";
             $passwordERROR = true;
-        }else if ($password != $passwordConfirm) {
+        } else if ($password != $passwordConfirm) {
             $errorMsg[] = "Passwords do not match. Please try again.";
             $passwordERROR = true;
         }
@@ -76,13 +75,13 @@ if (isset($_POST["btnSubmit"])) {
         
             // Action after submitting
             if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-
+                
                 // Insert user into database
                 
                 
                 
                 // Go to next page
-                header("Location: selection.php?username=" . $username);
+                header("Location: selection.php?username='" . $username . "'");
 
             } else { 
                 
@@ -100,7 +99,7 @@ if (isset($_POST["btnSubmit"])) {
                 }
         
         ?>
-        
+         
         <form action="<?php print $phpSelf; ?>"
               id="frmRegister"
               method="post">
