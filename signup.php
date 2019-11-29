@@ -31,6 +31,7 @@ if (isset($_POST["btnSubmit"])) {
     $password = htmlentities($_POST["fldPassword"], ENT_QUOTES, "UTF-8");  
     $passwordConfirm = htmlentities($_POST["fldPasswordConfirm"], ENT_QUOTES, "UTF-8");
     $password = hashPassword($password);
+    $passwordConfirm = hashPassword($passwordConfirm);
     
     // Validate form elements. If invalid, throw error.
     $login_array_for_validation = array();
@@ -77,8 +78,16 @@ if (isset($_POST["btnSubmit"])) {
             if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
                 
                 // Insert user into database
+                $signupInsertQuery = "INSERT INTO tblUsers (pfkUsername, fldPassword) VALUES (?, ?)";
+                $signupInsertResults = "";
+                $signupInsertDataRecord = array();
+                $signupInsertDataRecord[] = $username;
+                $signupInsertDataRecord[] = $password;
                 
-                
+                if ($thisDatabaseWriter->querySecurityOk($signupInsertQuery, 0)) {
+                    $signupInsertQuery = $thisDatabaseWriter->sanitizeQuery($signupInsertQuery);
+                    $signupInsertResults = $thisDatabaseWriter->insert($signupInsertQuery, $signupInsertDataRecord);
+                }
                 
                 // Go to next page
                 header("Location: selection.php?username='" . $username . "'");
@@ -93,6 +102,9 @@ if (isset($_POST["btnSubmit"])) {
                     foreach ($errorMsg as $err) {
                         print '<li>' . $err . '</li>' . PHP_EOL;       
                     }
+                    
+                    print '<li>' . $password . '</li>' . PHP_EOL; 
+                    print '<li>' . $passwordConfirm . '</li>' . PHP_EOL; 
 
                      print '</ul>' . PHP_EOL;
                      print '</div>' . PHP_EOL;
