@@ -34,7 +34,8 @@ if (isset($_POST["btnSubmit"])) {
     $login_array_for_validation = array();
     if (is_array($possibleUsernames)) {
         foreach ($possibleUsernames as $record) {
-            $login_array_for_validation[] = $possibleUsernames['pfkUsername'];
+            $login_array_for_validation[] = $record;
+            echo '<script language="javascript">alert(' . $record . ')</script>';
         }
     }
     
@@ -54,12 +55,15 @@ if (isset($_POST["btnSubmit"])) {
         $queriedPasswordDataRecord[] = $username;
         $queriedPasswordQuery = 'SELECT fldPassword, fldAdmin FROM tblUsers WHERE pfkUsername = ?';
         
-        if ($thisDatabaseReader->querySecurityOk($queriedPasswordQuery, 0)) {
+        if ($thisDatabaseReader->querySecurityOk($queriedPasswordQuery, 1, 0)) {
             $queriedPasswordQuery = $thisDatabaseReader->sanitizeQuery($queriedPasswordQuery);
             $queriedPassword = $thisDatabaseReader->select($queriedPasswordQuery, $queriedPasswordDataRecord);
         }
         
-        if ($queriedPassword['fldPassword'] == '' || $queriedPassword['fldPassword'] == NULL) {
+        if ($password == "") {
+            $errorMsg[] = "Please enter a password.";
+            $passwordERROR = true;
+        } else if ($queriedPassword['fldPassword'] == '' || $queriedPassword['fldPassword'] == NULL) {
             $errorMsg[] = "Invalid password. Please try again.";
             $passwordERROR = true;
         }
@@ -111,14 +115,13 @@ if (isset($_POST["btnSubmit"])) {
                 <input type="text" name="fldUsername" placeholder="Username">
             </fieldset>
             <fieldset>
-                <legend>Password</legend>
                 <input type="text" name="fldPassword" placeholder="Password">
             </fieldset>
             <fieldset>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
             </fieldset>
             <fieldset>
-                <a href="signup.php">New here? Signup.</a>
+                <a href="signup.php">New here? Signup here.</a>
             </fieldset>
         
         </form>

@@ -52,7 +52,10 @@ if (isset($_POST["btnSubmit"])) {
     // If no errors from username, check for errors for password.
     if ($usernameERROR == false) {
         
-        if ($password != $passwordConfirm) {
+        if ($password == "") {
+            $errorMsg[] = "Please enter a password.";
+            $passwordERROR = true;
+        }else if ($password != $passwordConfirm) {
             $errorMsg[] = "Passwords do not match. Please try again.";
             $passwordERROR = true;
         }

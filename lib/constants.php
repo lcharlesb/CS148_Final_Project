@@ -1,5 +1,5 @@
 <?php
-define('DATABASE_NAME', 'LBEATTY_Lab5');
+define('DATABASE_NAME', 'LBEATTY_FinalProject');
 define('DATABASE_READER', 'lbeatty_reader');
 define('DATABASE_READER_PWD', 'r');
 define('DATABASE_WRITER_PWD', 'w');

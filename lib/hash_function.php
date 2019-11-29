@@ -1,5 +1,5 @@
 <?php
-print "<!-- BEGIN include hash-function -->";
+print PHP_EOL . "<!-- BEGIN include hash-function -->" . PHP_EOL;
 
 function hash ($password) {
     // Hash password
@@ -16,5 +16,5 @@ function hash ($password) {
     
 }
 
-print "<!-- BEGIN include hash-function -->";
+print PHP_EOL . "<!-- BEGIN include hash-function -->" . PHP_EOL;
 ?>

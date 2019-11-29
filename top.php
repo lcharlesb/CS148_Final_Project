@@ -8,10 +8,6 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
-        <![endif]-->
-
         <link rel="stylesheet" href="css/base.css" type="text/css" media="screen">
 
         <?php
@@ -37,6 +33,6 @@
     include 'header.php';
     //include 'nav.php'; 
     include LIB_PATH . '/validation_functions.php';
-    include LIB_PATH . '/hash_function.php';
+    // include LIB_PATH . '/hash_function.php';
     require_once LIB_PATH . '/security.php';
     ?>
