@@ -31,8 +31,8 @@
     <?php
     print '<body id="' . $PATH_PARTS['filename'] . '">';
     include 'header.php';
-    //include 'nav.php'; 
     include LIB_PATH . '/validation_functions.php';
     include LIB_PATH . '/hash_function.php';
     require_once LIB_PATH . '/security.php';
+    $isAdmin = false;
     ?>

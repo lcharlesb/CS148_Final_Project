@@ -39,10 +39,13 @@ if (isset($_POST["btnSubmit"])) {
     }
     
     if ($username == "") {
-        $errorMsg[] = "Please enter a username.";
+        $errorMsg[] = "Please enter a username (email).";
         $usernameERROR = true;
     } else if (!in_array($username, $login_array_for_validation)) {
-        $errorMsg[] = "Invalid username. Please try again.";
+        $errorMsg[] = "Invalid username (email). Please try again.";
+        $usernameERROR = true;
+    } else if (!verifyEmail($username)) {
+        $errorMsg[] = "Given username is not a valid email. Please try again.";
         $usernameERROR = true;
     }
     
@@ -111,7 +114,7 @@ if (isset($_POST["btnSubmit"])) {
               method="post">
             
             <fieldset>
-                <input type="text" name="fldUsername" placeholder="Username">
+                <input type="text" name="fldUsername" placeholder="Username" value="<?php echo $username ?>">
             </fieldset>
             <fieldset>
                 <input type="text" name="fldPassword" placeholder="Password">

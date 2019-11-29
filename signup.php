@@ -47,6 +47,9 @@ if (isset($_POST["btnSubmit"])) {
     } else if (in_array($username, $login_array_for_validation)) {
         $errorMsg[] = "Username already in use. Please try again.";
         $usernameERROR = true;
+    } else if (!verifyEmail($username)) {
+        $errorMsg[] = "Given username is not a valid email. Please try again.";
+        $usernameERROR = true;
     }
     
     // If no errors from username, check for errors for password.
@@ -74,6 +77,10 @@ if (isset($_POST["btnSubmit"])) {
             // Action after submitting
             if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
 
+                // Insert user into database
+                
+                
+                
                 // Go to next page
                 header("Location: selection.php?username=" . $username);
 
@@ -99,7 +106,7 @@ if (isset($_POST["btnSubmit"])) {
               method="post">
             
             <fieldset>
-                <input type="text" name="fldUsername" placeholder="Enter username.">
+                <input type="text" name="fldUsername" placeholder="Enter username." value="<?php echo $username ?>">
             </fieldset>
             <fieldset>
                 <input type="text" name="fldPassword" placeholder="Enter password.">
