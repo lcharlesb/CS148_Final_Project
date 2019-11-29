@@ -118,6 +118,9 @@ if (isset($_POST["btnSubmit"])) {
             <fieldset>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
             </fieldset>
+            <fieldset>
+                <a href="signup.php">New here? Signup.</a>
+            </fieldset>
         
         </form>
         
