@@ -30,14 +30,14 @@ if (isset($_POST["btnSubmit"])) {
     $username = htmlentities($_POST["fldUsername"], ENT_QUOTES, "UTF-8");      
     $password = htmlentities($_POST["fldPassword"], ENT_QUOTES, "UTF-8");  
     $passwordConfirm = htmlentities($_POST["fldPasswordConfirm"], ENT_QUOTES, "UTF-8");  
-    $password = hash($password);
-    $passwordConfirm = hash($passwordConfirm);
+    $password = hashPassword($password);
+    $passwordConfirm = hashPassword($passwordConfirm);
     
     // Validate form elements. If invalid, throw error.
     $login_array_for_validation = array();
     if (is_array($possibleUsernames)) {
         foreach ($possibleUsernames as $record) {
-            $login_array_for_validation[] = $possibleUsernames['pfkUsername'];
+            $login_array_for_validation[] = $record[0];
         }
     }
     

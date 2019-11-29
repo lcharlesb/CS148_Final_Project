@@ -33,6 +33,6 @@
     include 'header.php';
     //include 'nav.php'; 
     include LIB_PATH . '/validation_functions.php';
-    // include LIB_PATH . '/hash_function.php';
+    include LIB_PATH . '/hash_function.php';
     require_once LIB_PATH . '/security.php';
     ?>

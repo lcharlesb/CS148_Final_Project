@@ -1,7 +1,7 @@
 <?php
 print PHP_EOL . "<!-- BEGIN include hash-function -->" . PHP_EOL;
 
-function hash ($password) {
+function hashPassword ($password) {
     // Hash password
     $hashedPassword = "";
     $passwordLength = strlen($password);
