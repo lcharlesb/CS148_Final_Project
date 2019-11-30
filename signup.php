@@ -126,7 +126,7 @@ if (isset($_POST["btnSubmit"])) {
                 </br>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
                 </br>
-                <a href="index.php">Already have an account? Login here.</a>
+                <a href="index.php">Have an account? Login here.</a>
             </fieldset>
         
         </form>
