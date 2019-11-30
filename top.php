@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Jake, Mateo and Luke Final Project</title>
+        <title>Git Together</title>
         <meta charset="utf-8">
         <meta name="author" content="Jake Mann, Mateo Riofrio and Luke Beatty">
         <meta name="description" content="Bob, Thank you for the example">

@@ -50,12 +50,13 @@ foreach($interestsInformation as $interest) {
 ?>
 <main>
     
-    <article>
-        <a href="profile-form.php">Edit your profile</a>
+    
+    <article class="Profile">
+        <a id="editProfile" class="button" href="<?php print "profile-form.php?username=" . $username ?>">Edit<img id="editProfileImage" src="images/edit_icon.png" /></a>
         <h2 id="profileName"><?php if($firstName != "") {echo $firstName . " ";} if($lastName != "") {echo $lastName;}?></h2>
-        <h4 id="profileGender"><?php if($gender != "") {echo "Gender: " . $gender;} ?></h4>
-        <h4 id="profilePreference"><?php if($preference != "") {echo "Interested in: " . $preference;} ?></h4>
-        <h4 id="profileInterests"><?php if(!empty($interests)) {echo "Your hobbies include: ";} ?></h4>
+        <?php if ($gender != "") {echo "<h4>Gender: </h4><p>" . $gender . "</p><BR>"; } ?>
+        <?php if ($preference != "") {echo "<h4>Interested in: </h4><p>" . $preference . "</p><BR>"; } ?>
+        <?php if (!empty($interests)) {echo "<h4>Your hobbies include: </h4>"; } ?>
         <?php
             if(!empty($interests)) {
                 echo "<ul>";
@@ -65,7 +66,7 @@ foreach($interestsInformation as $interest) {
                 echo "</ul>";
             }
         ?>
-        <h4 id="profileBio"><?php echo $bio; ?></h4>
+        <p id="profileBio"><?php echo $bio; ?></p>
         
     </article>
     

@@ -1,0 +1,75 @@
+/*------------------------   standard elements  ----------------------------- */
+h1 {
+    text-align: center;
+}
+
+
+/*------------------------   by class  ----------------------------- */
+.LogIn {
+    width: 20%;
+    margin: 5% auto 10% auto;
+    text-align: center;
+}
+
+.LogIn * {
+    margin: 10px;
+}
+
+.LogIn .button {
+    width: 60%;
+    font-size: 20px;
+}
+
+.Profile {
+    border: solid;
+    width: 50%;
+    margin: 5% auto 10% auto;
+}
+
+.Profile h2 {
+    margin: 5% 10% 2% 10%;
+}
+
+.Profile h4 {
+    display: inline-block;
+    margin: 1% 0% 1% 10%;
+}
+
+.Profile ul {
+    margin: 2% 10%;
+}
+
+.Profile p {
+    display: inline-block;
+    margin: 1% 2%
+}
+
+.mistake {
+    border-color: red;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+/*------------------------   by ID  ----------------------------- */
+#profileBio {
+    margin: 1% 10% 5% 10%;
+}
+
+#editProfile {
+    margin: 5% 5% 2% 10%;
+    float: right;
+    height: 28px;
+    padding: 10px 10px 0px 10px;
+}
+
+#editProfileImage {
+    float:right;
+    padding-left: 6px;
+}

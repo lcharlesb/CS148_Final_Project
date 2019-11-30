@@ -159,7 +159,7 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         // for loops dont work well with the len method function so I made these temporary variables.
         $toCheckLength = count($interestsToCheck);
         $numOfInter = count ($allInterests);
-        print '<br><label> Tags: </label><br>';
+        print '<br><label> Interests: </label><br>';
         for ($i = 0; $i < $numOfInter; $i++){
             print '<input type="checkbox" name="checkbox' . $i . '" value="' . $allInterests[$i][0] . '"';
             

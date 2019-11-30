@@ -10,6 +10,7 @@ $passwordConfirm = "";
 // Initialize error flags for each form element, used for validation
 $usernameERROR = false;
 $passwordERROR = false;
+$passwordConfirmERROR = false;
 
 $errorMsg = array();
 
@@ -61,6 +62,7 @@ if (isset($_POST["btnSubmit"])) {
         } else if ($password != $passwordConfirm) {
             $errorMsg[] = "Passwords do not match. Please try again.";
             $passwordERROR = true;
+            $passwordConfirmERROR = true;
         }
         
     }
@@ -102,9 +104,6 @@ if (isset($_POST["btnSubmit"])) {
                     foreach ($errorMsg as $err) {
                         print '<li>' . $err . '</li>' . PHP_EOL;       
                     }
-                    
-                    print '<li>' . $password . '</li>' . PHP_EOL; 
-                    print '<li>' . $passwordConfirm . '</li>' . PHP_EOL; 
 
                      print '</ul>' . PHP_EOL;
                      print '</div>' . PHP_EOL;
@@ -114,21 +113,19 @@ if (isset($_POST["btnSubmit"])) {
          
         <form action="<?php print $phpSelf; ?>"
               id="frmRegister"
+              class="LogIn"
               method="post">
             
             <fieldset>
-                <input type="text" name="fldUsername" placeholder="Enter username." value="<?php echo $username ?>">
-            </fieldset>
-            <fieldset>
-                <input type="text" name="fldPassword" placeholder="Enter password.">
-            </fieldset>
-            <fieldset>
-                <input type="text" name="fldPasswordConfirm" placeholder="Enter password again.">
-            </fieldset>
-            <fieldset>
+                <legend>Create an Account</legend>
+                <input <?php if ($usernameERROR){print' required class="mistake"';} ?>autofocus type="text" name="fldUsername" placeholder="Enter username." value="<?php echo $username ?>">
+                </br>
+                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="text" name="fldPassword" placeholder="Enter password.">
+                </br>
+                <input <?php if ($passwordConfirmERROR){print' required class="mistake"';} ?>type="text" name="fldPasswordConfirm" placeholder="Enter password again.">
+                </br>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
-            </fieldset>
-            <fieldset>
+                </br>
                 <a href="index.php">Already have an account? Login here.</a>
             </fieldset>
         
@@ -141,8 +138,6 @@ if (isset($_POST["btnSubmit"])) {
     </article>
     
 </main>
-
-<?php include 'footer.php'; ?>
 
 </body>
 </html>

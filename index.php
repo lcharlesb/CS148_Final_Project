@@ -53,7 +53,7 @@ if (isset($_POST["btnSubmit"])) {
     if ($usernameERROR == false) {
         
         $queriedPassword = '';
-        $queriedPasswordDataRecord[] = array();
+        $queriedPasswordDataRecord = array();
         $queriedPasswordDataRecord[] = $username;
         $queriedPasswordQuery = 'SELECT fldPassword, fldAdmin FROM tblUsers WHERE pfkUsername = ?';
         
@@ -62,10 +62,12 @@ if (isset($_POST["btnSubmit"])) {
             $queriedPassword = $thisDatabaseReader->select($queriedPasswordQuery, $queriedPasswordDataRecord);
         }
         
+        $passwordToCheck = $queriedPassword[0]['fldPassword'];
+        
         if ($password == "") {
             $errorMsg[] = "Please enter a password.";
             $passwordERROR = true;
-        } else if ($queriedPassword['fldPassword'] == '' || $queriedPassword['fldPassword'] == NULL) {
+        } else if ($passwordToCheck != $password) {
             $errorMsg[] = "Invalid password. Please try again.";
             $passwordERROR = true;
         }
@@ -111,19 +113,18 @@ if (isset($_POST["btnSubmit"])) {
         
         <form action="<?php print $phpSelf; ?>"
               id="frmRegister"
+              class="LogIn"
               method="post">
             
             <fieldset>
-                <input type="text" name="fldUsername" placeholder="Username" value="<?php echo $username ?>">
-            </fieldset>
-            <fieldset>
-                <input type="text" name="fldPassword" placeholder="Password">
-            </fieldset>
-            <fieldset>
+                <legend>Log In</legend>
+                <input <?php if ($usernameERROR){print' required class="mistake"';} ?>autofocus type="text" name="fldUsername" placeholder="Username" value="<?php echo $username ?>">
+                </br>
+                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="text" name="fldPassword" placeholder="Password">
+                </br>
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
-            </fieldset>
-            <fieldset>
-                <a href="signup.php">New here? Signup here.</a>
+                </br>
+                <a href="signup.php">New here? Signup.</a>
             </fieldset>
         
         </form>
@@ -135,8 +136,6 @@ if (isset($_POST["btnSubmit"])) {
     </article>
     
 </main>
-
-<?php include 'footer.php'; ?>
 
 </body>
 </html>
