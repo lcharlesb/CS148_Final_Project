@@ -39,7 +39,8 @@ if ($thisDatabaseReader->querySecurityOk($query, 1, 0)) {
     $interestsToCheck = $thisDatabaseReader->select($query, $username);
     
 }
-
+$toCheckLength = count($interestsToCheck);
+$numOfInter = count ($allInterests);
 
 print PHP_EOL . '<!-- SECTION: 1c form error flags -->' . PHP_EOL;
 
@@ -71,9 +72,16 @@ if (isset($_POST['btnSubmit'])) {
     print PHP_EOL . '<!-- sanitize data -->' . PHP_EOL;
 
     $firstName = htmlentities($_POST["txtFirstName"], ENT_QUOTES, "UTF-8");
+    $data[]= $firstName;
     $lastName = htmlentities($_POST["txtLastName"], ENT_QUOTES, "UTF-8");
+    $data[] =$lastName;
     $bio = htmlentities($_POST["txtBio"], ENT_QUOTES, "UTF-8");
+    $data[] = $bio;
     $preference = htmlentities($_POST["radioPreference"], ENT_QUOTES, "UTF-8");
+    $data[] = $preference;
+    if (!empty($fnkUsername)){
+        $data[] = $fnkUsername;
+    }
     for($a = 0; $a < len($allInterests); $a++){
         $interests = htmlentities($_POST["checkbox" . $a], ENT_QUOTES, "UTF-8");
         if (!empty($interests)){
@@ -107,7 +115,36 @@ if (isset($_POST['btnSubmit'])) {
             print "<p>Form is valid</p>";
         }
         print PHP_EOL . '<!-- save data -->' . PHP_EOL;
+        if(!empty($fnkUsername)){
+            $query = 'UPDATE tblProfile ';
+            $query .= 'SET fldFirstName = ?, ';
+            $query .= 'fldLastName = ?, ';
+            $query .= 'fldBio = ?, ';
+            $query .= 'fldGender = ?, ';
+            $query .= 'fldPreference = ? ';
+            $query .= 'WHERE fnkUsername = ? ';
+            if ($thisDatabaseWriter->querySecurityOk($query, 1, 0)) {
+                $query = $thisDatabaseWriter->sanitizeQuery($query);
+                $results = $thisDatabaseWriter->update($query, $data);
+            }
+            $query = 'DELETE FROM tblUsersInterests ';
+            $query .= 'WHERE fnkUsername = ?';
+            $delete = $thisDatabaseWriter->delete($query, $username);
+            
+            $numOfBoxesSelected = count($interestArray); // temporary variable for insert query.
 
+            $query = 'INSERT INTO tblUsersInterests(fnkUsername, fldInterest) ';
+            $query .= 'VALUES ';
+            for ($b = 0; $b < $numOfBoxesSelected-1; $b++){
+                $query .= '(' . $fnkUsername . ', ? ),';
+            }
+            $query .= '(' . $fnkUsername . ', ? )';
+            if ($thisDatabaseWriter->querySecurityOk($query, 0)) {
+                $query = $thisDatabaseWriter->sanitizeQuery($query);
+                $results = $thisDatabaseWriter->insert($query, $interestArray);
+            }
+        }
+        
     }
 
 
@@ -156,9 +193,8 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         <label for= "radioButton3">Other</label><br>
          <!-- check boxes -->
         <?php 
-        // for loops dont work well with the len method function so I made these temporary variables.
-        $toCheckLength = count($interestsToCheck);
-        $numOfInter = count ($allInterests);
+        
+        
         print '<br><label> Interests: </label><br>';
         for ($i = 0; $i < $numOfInter; $i++){
             print '<input type="checkbox" name="checkbox' . $i . '" value="' . $allInterests[$i][0] . '"';
