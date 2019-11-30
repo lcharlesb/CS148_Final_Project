@@ -88,10 +88,12 @@ if (isset($_POST['btnSubmit'])) {
     for($a = 0; $a < $numOfInter; $a++){
         $interests = htmlentities($_POST["checkbox" . $a], ENT_QUOTES, "UTF-8");
         if (!empty($interests)){
+            $interestArray[] = $fnkUsername;
+            $count +=1; // count every time the username is added to the interestArray
             $interestArray[] = $interests;  
-        }
-        
+        } 
     }
+    $numOfBoxesSelected = count($interestArray)-$count; // count the number of boxes to check but substract the number of times fnkUsername was added.
 
 
     print PHP_EOL . '<!-- validation -->' . PHP_EOL;
@@ -135,18 +137,19 @@ if (isset($_POST['btnSubmit'])) {
             $query .= 'WHERE pfkUsername = ?';
             $delete = $thisDatabaseWriter->delete($query, $username);
             
-            $numOfBoxesSelected = count($interestArray); // temporary variable for insert query.
+            
 
-            $query = 'INSERT INTO tblUsersInterests(fnkUsername, fldInterest) ';
+            $query = 'INSERT INTO tblUsersInterests(pfkUsername, fldInterest) ';
             $query .= 'VALUES ';
             for ($b = 0; $b < $numOfBoxesSelected-1; $b++){
-                $query .= '(' . $fnkUsername . ', ? ),';
+                $query .= '(?, ? ),';
             }
-            $query .= '(' . $fnkUsername . ', ? )';
+            $query .= '(?, ? )';
             if ($thisDatabaseWriter->querySecurityOk($query, 0)) {
                 $query = $thisDatabaseWriter->sanitizeQuery($query);
                 $results = $thisDatabaseWriter->insert($query, $interestArray);
             }
+            
         }
         $dataEntered = true;
         
