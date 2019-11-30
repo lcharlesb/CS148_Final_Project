@@ -77,18 +77,22 @@ if (isset($_POST['btnSubmit'])) {
     $data[] =$lastName;
     $bio = htmlentities($_POST["txtBio"], ENT_QUOTES, "UTF-8");
     $data[] = $bio;
+    $gender = htmlentities($_POST["listGender"], ENT_QUOTES, "UTF-8");
+    $data [] =$gender;
     $preference = htmlentities($_POST["radioPreference"], ENT_QUOTES, "UTF-8");
     $data[] = $preference;
+    
     if (!empty($fnkUsername)){
         $data[] = $fnkUsername;
     }
-    for($a = 0; $a < len($allInterests); $a++){
+    for($a = 0; $a < $numOfInter; $a++){
         $interests = htmlentities($_POST["checkbox" . $a], ENT_QUOTES, "UTF-8");
         if (!empty($interests)){
             $interestArray[] = $interests;  
         }
         
     }
+
 
     print PHP_EOL . '<!-- validation -->' . PHP_EOL;
 
@@ -105,7 +109,7 @@ if (isset($_POST['btnSubmit'])) {
         $lastNameERROR = true;
     }
     if(empty($bio)){
-        $errorMsg[] = "Please enter your preference.";
+        $errorMsg[] = "Please enter a bio.";
         $bioERROR = true;
     }
     print PHP_EOL . '<!-- process for when form is passed -->' . PHP_EOL;
@@ -128,7 +132,7 @@ if (isset($_POST['btnSubmit'])) {
                 $results = $thisDatabaseWriter->update($query, $data);
             }
             $query = 'DELETE FROM tblUsersInterests ';
-            $query .= 'WHERE fnkUsername = ?';
+            $query .= 'WHERE pfkUsername = ?';
             $delete = $thisDatabaseWriter->delete($query, $username);
             
             $numOfBoxesSelected = count($interestArray); // temporary variable for insert query.
@@ -144,6 +148,7 @@ if (isset($_POST['btnSubmit'])) {
                 $results = $thisDatabaseWriter->insert($query, $interestArray);
             }
         }
+        $dataEntered = true;
         
     }
 
@@ -181,16 +186,22 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         <label> First Name </label><br> 
             <input autofocus <?php if ($firstNameERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldFirstName'] . '"';} else if (isset($_POST["txtFirstName"])) { print 'value="' . $firstName . '"';}?>><br>
         <label> Last Name </label><br> 
-            <input <?php if ($lastNameERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldLastName'] . '"';} else if (isset($_POST["txtLastName"])) { print 'value="' . $lastName . '"';}?>><br>
+            <input <?php if ($lastNameERROR){print' required class="mistake"';} ?> type= "text" name="txtLastName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldLastName'] . '"';} else if (isset($_POST["txtLastName"])) { print 'value="' . $lastName . '"';}?>><br>
         <label> Bio </label><br> 
         <textarea <?php if ($bioERROR){print' required class="mistake"';} ?> name="txtBio" rows="10" cols="40"><?php if (!empty($fnkUsername)){echo $profileData[0]['fldBio'];} else if (isset($_POST["txtBio"])) { echo $bio;}?></textarea><br>
+        <label> Gender: </label><br>
+        <select name ="listGender" tabindex="300">
+        <option value="Male" <?php if($_POST["listGender"]=="Male"){print 'selected';}?>>Male </option>
+        <option value="Female" <?php if($_POST["listGender"]=="Female"){print 'selected';}?>> Female</option>
+        <option value="Other" <?php if($_POST["listGender"]=="Other"){print 'selected';}?>> Other </option>
+        </select><br>
         <label> Preference: </label><br>
-        <input id = "radioButton1" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
-        <label for= "radioButton1">Male</label><br>
-        <input id = "radioButton2" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"){print 'checked';}?>>
-        <label for= "radioButton2">Female</label><br>
-        <input id = "radioButton3" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"){print 'checked';}?>>
-        <label for= "radioButton3">Other</label><br>
+        <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
+        <label for= "radioButton4">Male</label><br>
+        <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"){print 'checked';}?>>
+        <label for= "radioButton5">Female</label><br>
+        <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"){print 'checked';}?>>
+        <label for= "radioButton6">Other</label><br>
          <!-- check boxes -->
         <?php 
         
