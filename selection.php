@@ -272,7 +272,72 @@ if (isset($_POST["btnNo"])) {
         
             } else {
                 
+                // Get list of users that the currUser has matched with.
+                $matches = array();
+                
+                $potentialMatchesQuery = "SELECT fnkOtherUsername FROM tblUserMatches WHERE pfkUsername = ? AND fldMatch = ?";
+                $potentialMatches = array();
+                $potentialMatchesDataRecord = array();
+                $potentialMatchesDataRecord[] = $currUsername;
+                $potentialMatchesDataRecord[] = '1';
+                $potentialMatchesArrayFromQuery = array();
+
+                if ($thisDatabaseReader->querySecurityOk($potentialMatchesQuery, 1, 1)) {
+                    $potentialMatchesQuery = $thisDatabaseReader->sanitizeQuery($potentialMatchesQuery);
+                    $potentialMatchesArrayFromQuery = $thisDatabaseReader->select($potentialMatchesQuery, $potentialMatchesDataRecord);
+                }
+                
+                foreach($potentialMatchesArrayFromQuery as $potentialMatch) {
+                    $potentialMatches[] = $potentialMatch[0];
+                }
+                
+                foreach($potentialMatches as $potentialMatch) {
+                    
+                    $checkMatchQuery = "SELECT fldMatch FROM tblUserMatches WHERE pfkUsername = ? AND fnkOtherUsername = ?";
+                    $checkMatch = array();
+                    $checkMatchDataRecord = array();
+                    $checkMatchDataRecord[] = $potentialMatch;
+                    $checkMatchDataRecord[] = $currUsername;
+                    
+                    if ($thisDatabaseReader->querySecurityOk($checkMatchQuery, 1, 1)) {
+                        $checkMatchQuery = $thisDatabaseReader->sanitizeQuery($checkMatchQuery);
+                        $checkMatch = $thisDatabaseReader->select($checkMatchQuery, $checkMatchDataRecord);
+                    }
+                    
+                    if($checkMatch[0]['fldMatch'] == '1' || $checkMatch[0]['fldMatch'] == 1) {
+                        $matches[] = $potentialMatch;
+                    }
+                    
+                }
+                
+                // Get first and last names for each of the matches
+                $matchesRealNames = array();
+                
+                foreach($matches as $match) {
+                    
+                    $getRealNameQuery = "SELECT fldFirstName, fldLastName FROM tblProfile WHERE fnkUsername = ?";
+                    $getRealNameDataRecord = array();
+                    $getRealNameDataRecord[] = $match;
+                    $getRealNameQueryResults = array();
+                    
+                    if ($thisDatabaseReader->querySecurityOk($getRealNameQuery, 1, 0)) {
+                        $getRealNameQuery = $thisDatabaseReader->sanitizeQuery($getRealNameQuery);
+                        $getRealNameQueryResults = $thisDatabaseReader->select($getRealNameQuery, $getRealNameDataRecord);
+                    }
+                    
+                    $matchesRealNames[] = $getRealNameQueryResults[0]["fldFirstName"] . " " . $getRealNameQueryResults[0]["fldLastName"];
+                    
+                }
+                
                 print("<h2>There are no more available matches.</h2>");
+                print("<h2>You've matched with the following people: </h2>");
+                print("<ul>");
+                
+                foreach($matchesRealNames as $match) {
+                    print("<li>" . $match . "</li>");
+                }
+                
+                print("</ul>");
                 
             }
             
