@@ -124,7 +124,7 @@ if (isset($_POST["btnSubmit"])) {
                 </br>
                 <input <?php if ($passwordConfirmERROR){print' required class="mistake"';} ?>type="text" name="fldPasswordConfirm" placeholder="Enter password again.">
                 </br>
-                <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
+                <input class="button" name="btnSubmit" tabindex="900" type="submit" value="Submit">
                 </br>
                 <a href="index.php">Have an account? Login here.</a>
             </fieldset>

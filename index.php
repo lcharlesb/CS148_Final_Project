@@ -122,7 +122,7 @@ if (isset($_POST["btnSubmit"])) {
                 </br>
                 <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="text" name="fldPassword" placeholder="Password">
                 </br>
-                <input class="button" id="btnSubmit" name="btnSubmit" tabindex="900" type="submit" value="Submit">
+                <input class="button" name="btnSubmit" tabindex="900" type="submit" value="Submit">
                 </br>
                 <a href="signup.php">New here? Signup.</a>
             </fieldset>
