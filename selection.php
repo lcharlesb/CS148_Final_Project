@@ -329,7 +329,7 @@ if (isset($_POST["btnNo"])) {
                     
                 }
                 
-                print("<h2>There are no more available matches.</h2>");
+                print("<h2>There are no more available profiles to match with.</h2>");
                 print("<h2>You've matched with the following people: </h2>");
                 print("<ul>");
                 
