@@ -18,6 +18,10 @@ $selectionInterests = array();
 // Get username from URL
 $currUsername = htmlentities($_GET["username"], ENT_QUOTES, "UTF-8");
 
+if($currUsername == "" || $currUsername == NULL) {
+    header("Location: index.php");
+}
+
 // Get a list of all users
 $usersQuery = "SELECT pfkUsername FROM tblUsers";
 $usersArrayFromQuery = "";

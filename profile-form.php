@@ -4,6 +4,11 @@ include 'top.php';
 print PHP_EOL . '<!-- SECTION: 1b form variables -->' . PHP_EOL;
 
 $fnkUsername = htmlentities($_GET["username"], ENT_QUOTES, "UTF-8");
+
+if($fnkUsername == "" || $fnkUsername == NULL) {
+    header("Location: index.php");
+}
+
 $username = "";
 $firstName = "";
 $lastName = "";

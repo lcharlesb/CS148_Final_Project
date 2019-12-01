@@ -14,6 +14,10 @@ $interests = array();
 // Get username from URL
 $username = htmlentities($_GET["username"], ENT_QUOTES, "UTF-8");
 
+if($username == "" || $username == NULL) {
+    header("Location: index.php");
+}
+
 // Get profile information based on username
 $profileQuery = "SELECT fldFirstName, fldLastName, fldGender, fldPreference, fldBio FROM tblProfile WHERE fnkUsername = ?";
 $profileInformation = "";
