@@ -330,14 +330,20 @@ if (isset($_POST["btnNo"])) {
                 }
                 
                 print("<h2>There are no more available profiles to match with.</h2>");
-                print("<h2>You've matched with the following people: </h2>");
-                print("<ul>");
                 
-                foreach($matchesRealNames as $match) {
-                    print("<li>" . $match . "</li>");
+                if(!empty($matchesRealNames)) {
+                    print("<h2>You've matched with the following people: </h2>");
+                    print("<ul>");
+
+                    foreach($matchesRealNames as $match) {
+                        print("<li>" . $match . "</li>");
+                    }
+
+                    print("</ul>");
+                } else {
+                    print("<h2>You have not yet matched with anyone.</h2>");
                 }
                 
-                print("</ul>");
                 
             }
             
