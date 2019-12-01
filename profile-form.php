@@ -139,7 +139,7 @@ if (isset($_POST['btnSubmit'])) {
             
             
 
-            $query = 'INSERT INTO tblUsersInterests(pfkUsername, fldInterest) ';
+            $query = 'INSERT INTO tblUsersInterests(pfkUsername, fnkInterest) ';
             $query .= 'VALUES ';
             for ($b = 0; $b < $numOfBoxesSelected-1; $b++){
                 $query .= '(?, ? ),';
