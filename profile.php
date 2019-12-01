@@ -48,8 +48,7 @@ foreach($interestsInformation as $interest) {
 
 
 ?>
-<main>
-    
+<main>  
     
     <article class="Profile">
         <a id="editProfile" class="button" href="<?php print "profile-form.php?username=" . $username ?>">Edit<img id="editProfileImage" src="images/edit_icon.png" /></a>
