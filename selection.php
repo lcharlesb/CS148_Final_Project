@@ -102,10 +102,125 @@ foreach($selectionInterestsQueryResults as $interest) {
 // Increment $currentSelectionUserNumber
 $currentSelectionUserNumber++;
 
+// Process for when "Yes" button is pressed
+if (isset($_POST["btnYes"])) {
+    
+    // Enter values into tblUsersMatches
+    $yesAMatchQuery = "INSERT INTO tblUserMatches (pfkUsername, fnkOtherUsername, fldMatch) VALUES (?, ?, ?)";
+    $yesAMatchQueryResults = array();
+    $yesAMatchQueryDataRecord = array();
+    $yesAMatchQueryDataRecord[] = $currUsername;
+    $yesAMatchQueryDataRecord[] = $selectionUsername;
+    $yesAMatchQueryDataRecord[] = '0';
+    
+    if ($thisDatabaseWriter->querySecurityOk($yesAMatchQuery, 0)) {
+        $yesAMatchQuery = $thisDatabaseWriter->sanitizeQuery($yesAMatchQuery);
+        $yesAMatchQueryResults = $thisDatabaseWriter->insert($yesAMatchQuery, $yesAMatchQueryDataRecord);
+    }
+    
+    // Get info on next $selectionUsernames user
+    $nextSelectionUserQuery = "SELECT fldFirstName, fldLastName, fldGender, fldPreference, fldBio FROM tblProfile WHERE fnkUsername = ?";
+    $nextSelectionUserQueryResults = "";
+    $nextSelectionUserDataRecord = array();
+    $nextSelectionUserDataRecord[] = $selectionUsernames[$currentSelectionUserNumber];
+
+    if ($thisDatabaseReader->querySecurityOk($nextSelectionUserQuery, 1, 0)) {
+        $nextSelectionUserQuery = $thisDatabaseReader->sanitizeQuery($nextSelectionUserQuery);
+        $nextSelectionUserQueryResults = $thisDatabaseReader->select($nextSelectionUserQuery, $nextSelectionUserDataRecord);
+    }
+
+    $selectionUsername = $selectionUsernames[$currentSelectionUserNumber];
+    $selectionFirstName = $nextSelectionUserQueryResults[0]["fldFirstName"];
+    $selectionLastName = $nextSelectionUserQueryResults[0]["fldLastName"];
+    $selectionGender = $nextSelectionUserQueryResults[0]["fldGender"];
+    $selectionPreference = $nextSelectionUserQueryResults[0]["fldPreference"];
+    $selectionBio = $nextSelectionUserQueryResults[0]["fldBio"];
+
+    // Get selectionInterests based on username
+    $selectionInterestsQuery = "SELECT fnkInterest FROM tblUsersInterests WHERE pfkUsername = ?";
+    $selectionInterestsQueryResults = "";
+    $selectionInterestsDataRecord = array();
+    $selectionInterestsDataRecord[] = $selectionUsername;
+
+    if ($thisDatabaseReader->querySecurityOk($selectionInterestsQuery, 1, 0)) {
+        $selectionInterestsQuery = $thisDatabaseReader->sanitizeQuery($selectionInterestsQuery);
+        $selectionInterestsQueryResults = $thisDatabaseReader->select($selectionInterestsQuery, $selectionInterestsDataRecord);
+    }
+
+    foreach($selectionInterestsQueryResults as $interest) {
+        $selectionInterests[] = $interest[0];
+    }
+
+    // Increment $currentSelectionUserNumber
+    $currentSelectionUserNumber++;
+    
+}
+
+// Process for when "No" button is pressed
+if (isset($_POST["btnNo"])) {
+    
+    // Enter values into tblUsersMatches
+    $notAMatchQuery = "INSERT INTO tblUserMatches (pfkUsername, fnkOtherUsername, fldMatch) VALUES (?, ?, ?)";
+    $notAMatchQueryResults = array();
+    $notAMatchQueryDataRecord = array();
+    $notAMatchQueryDataRecord[] = $currUsername;
+    $notAMatchQueryDataRecord[] = $selectionUsername;
+    $notAMatchQueryDataRecord[] = '0';
+    
+    if ($thisDatabaseWriter->querySecurityOk($notAMatchQuery, 0)) {
+        $notAMatchQuery = $thisDatabaseWriter->sanitizeQuery($notAMatchQuery);
+        $notAMatchQueryResults = $thisDatabaseWriter->insert($notAMatchQuery, $notAMatchQueryDataRecord);
+    }
+    
+    // Get info on next $selectionUsernames user
+    $nextSelectionUserQuery = "SELECT fldFirstName, fldLastName, fldGender, fldPreference, fldBio FROM tblProfile WHERE fnkUsername = ?";
+    $nextSelectionUserQueryResults = "";
+    $nextSelectionUserDataRecord = array();
+    $nextSelectionUserDataRecord[] = $selectionUsernames[$currentSelectionUserNumber];
+
+    if ($thisDatabaseReader->querySecurityOk($nextSelectionUserQuery, 1, 0)) {
+        $nextSelectionUserQuery = $thisDatabaseReader->sanitizeQuery($nextSelectionUserQuery);
+        $nextSelectionUserQueryResults = $thisDatabaseReader->select($nextSelectionUserQuery, $nextSelectionUserDataRecord);
+    }
+
+    $selectionUsername = $selectionUsernames[$currentSelectionUserNumber];
+    $selectionFirstName = $nextSelectionUserQueryResults[0]["fldFirstName"];
+    $selectionLastName = $nextSelectionUserQueryResults[0]["fldLastName"];
+    $selectionGender = $nextSelectionUserQueryResults[0]["fldGender"];
+    $selectionPreference = $nextSelectionUserQueryResults[0]["fldPreference"];
+    $selectionBio = $nextSelectionUserQueryResults[0]["fldBio"];
+
+    // Get selectionInterests based on username
+    $selectionInterestsQuery = "SELECT fnkInterest FROM tblUsersInterests WHERE pfkUsername = ?";
+    $selectionInterestsQueryResults = "";
+    $selectionInterestsDataRecord = array();
+    $selectionInterestsDataRecord[] = $selectionUsername;
+
+    if ($thisDatabaseReader->querySecurityOk($selectionInterestsQuery, 1, 0)) {
+        $selectionInterestsQuery = $thisDatabaseReader->sanitizeQuery($selectionInterestsQuery);
+        $selectionInterestsQueryResults = $thisDatabaseReader->select($selectionInterestsQuery, $selectionInterestsDataRecord);
+    }
+
+    foreach($selectionInterestsQueryResults as $interest) {
+        $selectionInterests[] = $interest[0];
+    }
+
+    // Increment $currentSelectionUserNumber
+    $currentSelectionUserNumber++;
+    
+}
+
 ?>
 <main>
     
     <article class="Profile">
+        
+        <?php
+            // Display form if $selectionUsername is not null
+            if ($selectionUsername != "") {
+                
+        ?>
+        
         <h2 id="profileName"><?php if($selectionFirstName != "") {echo $selectionFirstName . " ";} if($selectionLastName != "") {echo $selectionLastName;}?></h2>
         <?php if ($selectionGender != "") {echo "<h4>Gender: </h4><p>" . $selectionGender . "</p><BR>"; } ?>
         <?php if ($selectionPreference != "") {echo "<h4>Interested in: </h4><p>" . $selectionPreference . "</p><BR>"; } ?>
@@ -120,6 +235,20 @@ $currentSelectionUserNumber++;
             }
         ?>
         <p id="profileBio"><?php echo $selectionBio; ?></p>
+        <form action="" method="post">
+            <button class="selectionButtons" id="btnYes" name="btnYes">Yes</button>
+        <button class="selectionButtons" id="btnNo" name="btnNo">No</button>
+        </form>
+        
+        <?php
+        
+            } else {
+                
+                print("<h2>There are no more available matches.</h2>");
+                
+            }
+            
+        ?>
         
     </article>
     
