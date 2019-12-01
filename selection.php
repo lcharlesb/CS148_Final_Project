@@ -62,8 +62,27 @@ if ($thisDatabaseReader->querySecurityOk($selectionUsernamesQuery, 1, 3)) {
     $selectionUsernamesArrayFromQuery = $thisDatabaseReader->select($selectionUsernamesQuery, $selectionUsernamesDataRecord);
 }
 
+// Get list of users that the currUser has already made a decision on.
+$previousSelectionsQuery = "SELECT fnkOtherUsername FROM tblUserMatches WHERE pfkUsername = ?";
+$previousSelections = array();
+$previousSelectionsDataRecord = array();
+$previousSelectionsDataRecord[] = $currUsername;
+$previousSelectionsArrayFromQuery = array();
+
+if ($thisDatabaseReader->querySecurityOk($previousSelectionsQuery, 1, 0)) {
+    $previousSelectionsQuery = $thisDatabaseReader->sanitizeQuery($previousSelectionsQuery);
+    $previousSelectionsArrayFromQuery = $thisDatabaseReader->select($previousSelectionsQuery, $previousSelectionsDataRecord);
+}
+
+foreach($previousSelectionsArrayFromQuery as $previousSelect) {
+    $previousSelections[] = $previousSelect[0];
+}
+
+// Add selectionUsers to $selectionUsernames if they are not in $previousSelecitons
 foreach($selectionUsernamesArrayFromQuery as $selectionUser) {
-    $selectionUsernames[] = $selectionUser[0];
+    if(!in_array($selectionUser[0], $previousSelections)) {
+        $selectionUsernames[] = $selectionUser[0];
+    }
 }
 
 // Get info on first $selectionUsernames user
@@ -208,12 +227,20 @@ if (isset($_POST["btnNo"])) {
     // Increment $currentSelectionUserNumber
     $currentSelectionUserNumber++;
     
+} else if (isset($_POST["SelectionToProfileButton"])) {
+    
+    header("Location: profile.php?username=" . $currUsername);
+    
 }
 
 ?>
 <main>
     
-    <article class="Profile">
+    <form action="" method="post">
+        <button name="SelectionToProfileButton" id="SelectionToProfileButton">Your Profile</button>
+    </form>
+        
+    <article class="Profile"> 
         
         <?php
             // Display form if $selectionUsername is not null
@@ -235,9 +262,10 @@ if (isset($_POST["btnNo"])) {
             }
         ?>
         <p id="profileBio"><?php echo $selectionBio; ?></p>
-        <form action="" method="post">
-            <button class="selectionButtons" id="btnYes" name="btnYes">Yes</button>
-        <button class="selectionButtons" id="btnNo" name="btnNo">No</button>
+        <form action="" method="post" id="SelectionButtonsForm">
+            <button class="selectionButtons" id="btnNo" name="btnNo">No.</button>
+            <button class="selectionButtons" id="btnYes" name="btnYes">Yes!</button>
+        
         </form>
         
         <?php

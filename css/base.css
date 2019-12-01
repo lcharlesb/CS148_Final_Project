@@ -140,3 +140,51 @@ a.button {
     width: 70px;
     border-radius: 6px;
 }
+
+#ProfileToSelectionButton {
+    -webkit-appearance: none;
+    display: block;
+    margin-left: 90%;
+    height: 30px;
+    width: 120px;
+    border-radius: 6px;
+}
+
+#SelectionToProfileButton {
+    -webkit-appearance: none;
+    display: block;
+    margin-left: 90%;
+    height: 30px;
+    width: 100px;
+    border-radius: 6px;
+}
+
+#btnYes {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 70px;
+    border-radius: 6px;
+    background-color: lightgreen;
+}
+
+#btnNo {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 70px;
+    border-radius: 6px;
+    background-color: #FFCCCB;
+}
+
+#SelectionButtonsForm {
+    text-align: right;
+    margin: 10px;
+}
+
+#editProfileButton {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 70px;
+    border-radius: 6px;
+    margin: 10px;
+    float: right;
+}

@@ -46,12 +46,29 @@ foreach($interestsInformation as $interest) {
     $interests[] = $interest[0];
 }
 
+if (isset($_POST["ProfileToSelectionButton"])) {
+    
+    header("Location: selection.php?username=" . $username);
+    
+} else if (isset($_POST["editProfileButton"])) {
+    
+    header("Location: profile-form.php?username=" . $username);
+    
+}
 
 ?>
 <main>  
     
+    <form action="" method="post">
+        <button name="ProfileToSelectionButton" id="ProfileToSelectionButton">Back To Matching</button>
+    </form>
+    
     <article class="Profile">
-        <a id="editProfile" class="button" href="<?php print "profile-form.php?username=" . $username ?>">Edit<img id="editProfileImage" src="images/edit_icon.png" /></a>
+        
+        <form action="" method="post">
+            <button name="editProfileButton" id="editProfileButton">Edit</button>
+        </form>        
+        
         <h2 id="profileName"><?php if($firstName != "") {echo $firstName . " ";} if($lastName != "") {echo $lastName;}?></h2>
         <?php if ($gender != "") {echo "<h4>Gender: </h4><p>" . $gender . "</p><BR>"; } ?>
         <?php if ($preference != "") {echo "<h4>Interested in: </h4><p>" . $preference . "</p><BR>"; } ?>
