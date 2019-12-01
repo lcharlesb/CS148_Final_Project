@@ -44,6 +44,36 @@ h1 {
     margin: 1% 2%
 }
 
+.ProfileForm {
+    width: 50%;
+    margin: 2% auto;
+}
+
+.ProfileForm h2 {
+    width: 56%;
+    margin: auto;
+}
+
+.ProfileForm fieldset {
+    border: none;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.ProfileFormRadioButtonWithLabel {
+    padding: 5px;
+}
+
+.ProfileFormMarginLeft {
+    margin-left: 35px;
+    display: block;
+}
+
+.ProfileFormHobbies {
+    display: block;
+    margin-left: 23px !important;
+}
+
 .mistake {
     border-color: red;
 }
@@ -72,4 +102,40 @@ a.button {
 #editProfileImage {
     float:right;
     padding-left: 6px;
+}
+
+#ProfileFormHeader {
+    width: 48%;
+    margin: auto;
+}
+
+#ProfileFormFieldset {
+    border: solid;
+}
+
+#frmProfile {
+    border: solid;
+}
+
+#ProfileFormPadTop {
+    padding-top: 30px;
+}
+
+#ProfileFormGender {
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#ProfileFormBio {
+    width: 100%;
+}
+
+#btnSubmit {
+    -webkit-appearance: none;
+    float: right;
+    margin-bottom: 10px; 
+    height: 30px;
+    width: 70px;
+    border-radius: 6px;
 }

@@ -30,7 +30,7 @@ if ($thisDatabaseReader->querySecurityOk($query, 0)) {
     $allInterests = $thisDatabaseReader->select($query, '');
 
 }
-$query = "SELECT fldInterest ";
+$query = "SELECT fnkInterest ";
 $query .= "FROM tblUsersInterests ";
 $query .= "WHERE pfkUsername = ? ";
 
@@ -159,8 +159,9 @@ if (isset($_POST['btnSubmit'])) {
 }
 print PHP_EOL . '<!-- display form -->' . PHP_EOL;
     if ($dataEntered) {
-        print "<h2>Record Saved</h2> ";
-        print "<br>";
+        
+        header("Location: profile.php?username=" . $fnkUsername);
+        
     }else {
 
         print PHP_EOL . '<!-- display error messages. -->' . PHP_EOL;
@@ -178,65 +179,78 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
     
         print PHP_EOL . '<!-- html form -->' . PHP_EOL;
         if(!empty($fnkUsername)){
-            print '<h2> Edit Profile </h2>';
+            print '<h2 id="ProfileFormHeader"> Edit Profile </h2>';
         }
         else{
-            print '<h2> Profile Information </h2>';
+            print '<h2 id="ProfileFormHeader"> Profile Information </h2>';
         }
     ?>
-    <form action ="<?php if (!empty($fnkUsername)) {print 'profile-form.php?username=' . $fnkUsername; } else if (empty($fnkUsername)) { print $phpSelf;}?>" method ="post" id="frmProfile">
-    <fieldset class="">
-        <label> First Name </label><br> 
-            <input autofocus <?php if ($firstNameERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldFirstName'] . '"';} else if (isset($_POST["txtFirstName"])) { print 'value="' . $firstName . '"';}?>><br>
-        <label> Last Name </label><br> 
-            <input <?php if ($lastNameERROR){print' required class="mistake"';} ?> type= "text" name="txtLastName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldLastName'] . '"';} else if (isset($_POST["txtLastName"])) { print 'value="' . $lastName . '"';}?>><br>
-        <label> Bio </label><br> 
-        <textarea <?php if ($bioERROR){print' required class="mistake"';} ?> name="txtBio" rows="10" cols="40"><?php if (!empty($fnkUsername)){echo $profileData[0]['fldBio'];} else if (isset($_POST["txtBio"])) { echo $bio;}?></textarea><br>
-        <label> Gender: </label><br>
-        <select name ="listGender" tabindex="300">
-        <option value="Male" <?php if($_POST["listGender"]=="Male"){print 'selected';}?>>Male </option>
-        <option value="Female" <?php if($_POST["listGender"]=="Female"){print 'selected';}?>> Female</option>
-        <option value="Other" <?php if($_POST["listGender"]=="Other"){print 'selected';}?>> Other </option>
-        </select><br>
-        <label> Preference: </label><br>
-        <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
-        <label for= "radioButton4">Male</label><br>
-        <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"){print 'checked';}?>>
-        <label for= "radioButton5">Female</label><br>
-        <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"){print 'checked';}?>>
-        <label for= "radioButton6">Other</label><br>
-         <!-- check boxes -->
-        <?php 
-        
-        
-        print '<br><label> Interests: </label><br>';
-        for ($i = 0; $i < $numOfInter; $i++){
-            print '<input type="checkbox" name="checkbox' . $i . '" value="' . $allInterests[$i][0] . '"';
-            
-            if(!empty($fnkUsername)){
-                for ($z = 0; $z < $toCheckLength; $z++){
-                if (in_array($interestsToCheck[$z][0],$allInterests[$i], true)){
-                    print ' checked' ;
+    <form action ="<?php if (!empty($fnkUsername)) {print 'profile-form.php?username=' . $fnkUsername; } else if (empty($fnkUsername)) { print $phpSelf;}?>" method ="post" class="ProfileForm" id="frmProfile">
+        <fieldset>
+            <legend id="ProfileFormPadTop"><b> First Name: </b></legend>
+                <input autofocus <?php if ($firstNameERROR){print' required class="mistake"';} ?> type= "text" name="txtFirstName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldFirstName'] . '"';} else if (isset($_POST["txtFirstName"])) { print 'value="' . $firstName . '"';}?>>
+        </fieldset>
+        <fieldset>
+            <legend><b> Last Name: </b></legend>
+            <input <?php if ($lastNameERROR){print' required class="mistake"';} ?> type= "text" name="txtLastName" <?php if (!empty($fnkUsername)){print 'value="' . $profileData[0]['fldLastName'] . '"';} else if (isset($_POST["txtLastName"])) { print 'value="' . $lastName . '"';}?>>  
+        </fieldset>
+        <fieldset>
+            <legend><b> Gender: </b></legend>
+            <select name ="listGender" tabindex="300" class="ProfileFormMarginLeft" id="ProfileFormGender">
+                <option value="Male" <?php if($_POST["listGender"]=="Male"){print 'selected';}?>>Male </option>
+                <option value="Female" <?php if($_POST["listGender"]=="Female"){print 'selected';}?>> Female</option>
+                <option value="Other" <?php if($_POST["listGender"]=="Other"){print 'selected';}?>> Other </option> 
+            </select>
+        </fieldset>
+        <fieldset id="ProfileFormRadioButtons">
+            <legend><b> Interested in: </b></legend>
+            <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
+                <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
+                <label for= "radioButton4">Male</label>
+            </fieldset>
+            <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
+                <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"){print 'checked';}?>>
+                <label for= "radioButton5">Female</label>
+            </fieldset>
+            <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
+                <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"){print 'checked';}?>>
+                <label for= "radioButton6">Other</label>
+            </fieldset>  
+        </fieldset>
+        <fieldset>
+            <?php 
+                print '<legend><b> Your hobbies include: </b></legend>';
+                for ($i = 0; $i < $numOfInter; $i++){
+                    print '<fieldset class="ProfileFormHobbies">';
+                    print '<input type="checkbox" name="checkbox' . $i . '" value="' . $allInterests[$i][0] . '"';
+
+                    if(!empty($fnkUsername)){
+                        for ($z = 0; $z < $toCheckLength; $z++){
+                        if (in_array($interestsToCheck[$z][0],$allInterests[$i], true)){
+                            print ' checked' ;
+                            }
+                        }
                     }
-                }
-            }
-            else if (empty($fnkUsername)){
-                for ($z = 0; $z < $numOfInter; $z++){
-                if (in_array($interestArray[$z],$allInterests[$i], true)){
-                    print ' checked' ;
+                    else if (empty($fnkUsername)){
+                        for ($z = 0; $z < $numOfInter; $z++){
+                        if (in_array($interestArray[$z],$allInterests[$i], true)){
+                            print ' checked' ;
+                            }
+                        }
                     }
+
+                    print '>' . $allInterests[$i][0];
+                    print '</fieldset>';
                 }
-            }
-                
-            print '>' . $allInterests[$i][0];
-            
-        }
-        
-        print '<br>';
-        ?>
-       
-       <input type="submit" id="btnSubmit" name="btnSubmit" value="Submit" tabindex="900" class="button">
-    </fieldset>
+            ?>
+        </fieldset>
+        <fieldset>
+            <legend><b> Bio: </b></legend>
+            <textarea <?php if ($bioERROR){print' required class="mistake"';} ?> name="txtBio" id="ProfileFormBio" rows="10" cols="40"><?php if (!empty($fnkUsername)){echo $profileData[0]['fldBio'];} else if (isset($_POST["txtBio"])) { echo $bio;}?></textarea>
+        </fieldset>
+        <fieldset>
+            <button type="submit" id="btnSubmit" name="btnSubmit" value="Submit" tabindex="900" class="button">Submit</button>
+        </fieldset>
     </form>
     <?php
     } 
