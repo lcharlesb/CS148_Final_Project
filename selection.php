@@ -111,7 +111,7 @@ if (isset($_POST["btnYes"])) {
     $yesAMatchQueryDataRecord = array();
     $yesAMatchQueryDataRecord[] = $currUsername;
     $yesAMatchQueryDataRecord[] = $selectionUsername;
-    $yesAMatchQueryDataRecord[] = '0';
+    $yesAMatchQueryDataRecord[] = '1';
     
     if ($thisDatabaseWriter->querySecurityOk($yesAMatchQuery, 0)) {
         $yesAMatchQuery = $thisDatabaseWriter->sanitizeQuery($yesAMatchQuery);

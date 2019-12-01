@@ -79,20 +79,31 @@ if (isset($_POST["btnSubmit"])) {
             // Action after submitting
             if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
                 
-                // Insert user into database
-                $signupInsertQuery = "INSERT INTO tblUsers (pfkUsername, fldPassword) VALUES (?, ?)";
-                $signupInsertResults = "";
-                $signupInsertDataRecord = array();
-                $signupInsertDataRecord[] = $username;
-                $signupInsertDataRecord[] = $password;
+                // Insert user into tblUsers
+                $signupUsersInsertQuery = "INSERT INTO tblUsers (pfkUsername, fldPassword) VALUES (?, ?)";
+                $signupUsersInsertResults = "";
+                $signupUsersInsertDataRecord = array();
+                $signupUsersInsertDataRecord[] = $username;
+                $signupUsersInsertDataRecord[] = $password;
                 
-                if ($thisDatabaseWriter->querySecurityOk($signupInsertQuery, 0)) {
-                    $signupInsertQuery = $thisDatabaseWriter->sanitizeQuery($signupInsertQuery);
-                    $signupInsertResults = $thisDatabaseWriter->insert($signupInsertQuery, $signupInsertDataRecord);
+                if ($thisDatabaseWriter->querySecurityOk($signupUsersInsertQuery, 0)) {
+                    $signupUsersInsertQuery = $thisDatabaseWriter->sanitizeQuery($signupUsersInsertQuery);
+                    $signupUsersInsertResults = $thisDatabaseWriter->insert($signupUsersInsertQuery, $signupUsersInsertDataRecord);
+                }
+                
+                // Insert user into tblProfile
+                $signupProfileInsertQuery = "INSERT INTO tblProfile (fnkUsername) VALUES (?)";
+                $signupProfileInsertResults = "";
+                $signupProfileInsertDataRecord = array();
+                $signupProfileInsertDataRecord[] = $username;
+                
+                if ($thisDatabaseWriter->querySecurityOk($signupProfileInsertQuery, 0)) {
+                    $signupProfileInsertQuery = $thisDatabaseWriter->sanitizeQuery($signupProfileInsertQuery);
+                    $signupProfileInsertResults = $thisDatabaseWriter->insert($signupProfileInsertQuery, $signupProfileInsertDataRecord);
                 }
                 
                 // Go to next page
-                header("Location: profile-form.php?username='" . $username . "'");
+                header("Location: profile-form.php?username=" . $username);
 
             } else { 
                 
