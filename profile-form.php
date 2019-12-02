@@ -18,7 +18,7 @@ $bio = "";
 $interests = "";
 
 
-$query  = "SELECT fnkUsername, fldBio, fldFirstName, fldLastName,fldPreference ";
+$query  = "SELECT fnkUsername, fldBio, fldFirstName, fldLastName,fldPreference, fldGender ";
 $query .= "FROM tblProfile ";
 $query .= "WHERE fnkUsername = ?";
 $username = array($fnkUsername);
@@ -27,6 +27,7 @@ if ($thisDatabaseReader->querySecurityOk($query, 1, 0)) {
     $profileData = $thisDatabaseReader->select($query, $username);
     
 }
+
 $query = "SELECT pmkInterest ";
 $query .= "FROM tblInterests ";
 
@@ -202,23 +203,23 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         <fieldset>
             <legend><b> Gender: </b></legend>
             <select name ="listGender" tabindex="300" class="ProfileFormMarginLeft" id="ProfileFormGender">
-                <option value="Male" <?php if($_POST["listGender"]=="Male"){print 'selected';}?>>Male </option>
-                <option value="Female" <?php if($_POST["listGender"]=="Female"){print 'selected';}?>> Female</option>
-                <option value="Other" <?php if($_POST["listGender"]=="Other"){print 'selected';}?>> Other </option> 
+                <option value="Male" <?php if($_POST["listGender"]=="Male"|| $profileData[0]["fldGender"] == "Male"){print 'selected';}?>>Male </option>
+                <option value="Female" <?php if($_POST["listGender"]=="Female"|| $profileData[0]["fldGender"] == "Female"){print 'selected';}?>> Female</option>
+                <option value="Other" <?php if($_POST["listGender"]=="Other"|| $profileData[0]["fldGender"] == "Other"){print 'selected';}?>> Other </option> 
             </select>
         </fieldset>
         <fieldset id="ProfileFormRadioButtons">
             <legend><b> Interested in: </b></legend>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"){print 'checked';}?> checked>
+                <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"|| $profileData[0]["fldPreference"] == "Male"){print 'checked';}?> checked>
                 <label for= "radioButton4">Male</label>
             </fieldset>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"){print 'checked';}?>>
+                <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"|| $profileData[0]["fldPreference"] == "Female"){print 'checked';}?>>
                 <label for= "radioButton5">Female</label>
             </fieldset>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"){print 'checked';}?>>
+                <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"|| $profileData[0]["fldPreference"] == "Other"){print 'checked';}?>>
                 <label for= "radioButton6">Other</label>
             </fieldset>  
         </fieldset>
