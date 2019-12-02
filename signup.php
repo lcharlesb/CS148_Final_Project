@@ -17,7 +17,7 @@ $errorMsg = array();
 // Select possible usernames
 $possibleUsernames = '';
 
-$possibleUsernamesQuery = 'SELECT pfkUsername FROM tblUsers';
+$possibleUsernamesQuery = 'SELECT pmkUsername FROM tblUsers';
 
 if ($thisDatabaseReader->querySecurityOk($possibleUsernamesQuery, 0)) {
     $possibleUsernamesQuery = $thisDatabaseReader->sanitizeQuery($possibleUsernamesQuery);
@@ -80,7 +80,7 @@ if (isset($_POST["btnSubmit"])) {
             if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
                 
                 // Insert user into tblUsers
-                $signupUsersInsertQuery = "INSERT INTO tblUsers (pfkUsername, fldPassword) VALUES (?, ?)";
+                $signupUsersInsertQuery = "INSERT INTO tblUsers (pmkUsername, fldPassword) VALUES (?, ?)";
                 $signupUsersInsertResults = "";
                 $signupUsersInsertDataRecord = array();
                 $signupUsersInsertDataRecord[] = $username;

@@ -15,7 +15,7 @@ $errorMsg = array();
 // Select possible usernames
 $possibleUsernames = '';
 
-$possibleUsernamesQuery = 'SELECT pfkUsername FROM tblUsers';
+$possibleUsernamesQuery = 'SELECT pmkUsername FROM tblUsers';
 
 if ($thisDatabaseReader->querySecurityOk($possibleUsernamesQuery, 0)) {
     $possibleUsernamesQuery = $thisDatabaseReader->sanitizeQuery($possibleUsernamesQuery);
@@ -55,7 +55,7 @@ if (isset($_POST["btnSubmit"])) {
         $queriedPassword = '';
         $queriedPasswordDataRecord = array();
         $queriedPasswordDataRecord[] = $username;
-        $queriedPasswordQuery = 'SELECT fldPassword, fldAdmin FROM tblUsers WHERE pfkUsername = ?';
+        $queriedPasswordQuery = 'SELECT fldPassword, fldAdmin FROM tblUsers WHERE pmkUsername = ?';
         
         if ($thisDatabaseReader->querySecurityOk($queriedPasswordQuery, 1, 0)) {
             $queriedPasswordQuery = $thisDatabaseReader->sanitizeQuery($queriedPasswordQuery);
