@@ -141,6 +141,68 @@ if (isset($_POST["btnYes"])) {
         $yesAMatchQueryResults = $thisDatabaseWriter->insert($yesAMatchQuery, $yesAMatchQueryDataRecord);
     }
     
+    // Find if user has corresponding match, and if so send email
+    $correspondingMatchQuery = "SELECT fldMatch FROM tblUserMatches WHERE pfkUsername = ? AND fnkOtherUsername = ?";
+    $correspondingMatchQueryResults = array();
+    $correspondingMatchQueryDataRecord = array();
+    $correspondingMatchQueryDataRecord[] = $selectionUsername;
+    $correspondingMatchQueryDataRecord[] = $currUsername;
+    
+    if ($thisDatabaseReader->querySecurityOk($correspondingMatchQuery, 1, 1)) {
+        $correspondingMatchQuery = $thisDatabaseReader->sanitizeQuery($correspondingMatchQuery);
+        $correspondingMatchQueryResults = $thisDatabaseReader->select($correspondingMatchQuery, $correspondingMatchQueryDataRecord);
+    }
+    
+    if($correspondingMatchQueryResults[0]['fldMatch'] == '1' || $correspondingMatchQueryResults[0]['fldMatch'] == 1) {
+        
+        // Get the user's names
+        $getUserNamesQuery = "SELECT fldFirstName, fldLastName FROM tblProfile WHERE fnkUsername = ? OR fnkUsername = ?";
+        $getUserNamesQueryResults = array();
+        $getUserNamesQueryDataRecord = array();
+        $getUserNamesQueryDataRecord[] = $selectionUsername;
+        $getUserNamesQueryDataRecord[] = $currUsername;
+        
+        if ($thisDatabaseReader->querySecurityOk($getUserNamesQuery, 1, 1)) {
+            $getUserNamesQuery = $thisDatabaseReader->sanitizeQuery($getUserNamesQuery);
+            $getUserNamesQueryResults = $thisDatabaseReader->select($getUserNamesQuery, $getUserNamesQueryDataRecord);
+        }
+        
+        $selectionUsernameRealName = $getUserNamesQueryResults[0]['fldFirstName'] . " " . $getUserNamesQueryResults[0]['fldLastName'];
+        $currUsernameRealName = $getUserNamesQueryResults[1]['fldFirstName'] . " " . $getUserNamesQueryResults[1]['fldLastName'];
+        
+        // Email first user about match.
+        $message = '<h2 style="font-style:italic" >You matched with the following user on GitTogether: </h2>';
+       
+        $message .= '<p>Name: ' . $selectionUsernameRealName . '</p>';
+        $message .= '<p>Email: ' . $selectionUsername . '</p>';
+
+        $to = $currUsername; 
+        $cc = '';
+        $bcc = '';
+
+        $from = 'Git Together <match@gittogether.com>';
+
+        $subject = 'Git Together Match!';
+       
+        $mailed = sendMail($to, $cc, $bcc, $from, $subject, $message);
+        
+        // Email second user about match.
+        $message = '<h2 style="font-style:italic" >You matched with the following user on GitTogether: </h2>';
+       
+        $message .= '<p>Name: ' . $currUsernameRealName . '</p>';
+        $message .= '<p>Email: ' . $currUsername . '</p>';
+
+        $to = $selectionUsername; 
+        $cc = '';
+        $bcc = '';
+
+        $from = 'Git Together <match@gittogether.com>';
+
+        $subject = 'Git Together Match!';
+       
+        $mailed = sendMail($to, $cc, $bcc, $from, $subject, $message);
+    }
+    
     // Get info on next $selectionUsernames user
     $nextSelectionUserQuery = "SELECT fldFirstName, fldLastName, fldGender, fldPreference, fldBio FROM tblProfile WHERE fnkUsername = ?";
     $nextSelectionUserQueryResults = "";
