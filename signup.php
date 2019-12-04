@@ -131,9 +131,9 @@ if (isset($_POST["btnSubmit"])) {
                 <legend>Create an Account</legend>
                 <input <?php if ($usernameERROR){print' required class="mistake"';} ?>autofocus type="text" name="fldUsername" placeholder="Enter username." value="<?php echo $username ?>">
                 </br>
-                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="text" name="fldPassword" placeholder="Enter password.">
+                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="password" name="fldPassword" placeholder="Enter password.">
                 </br>
-                <input <?php if ($passwordConfirmERROR){print' required class="mistake"';} ?>type="text" name="fldPasswordConfirm" placeholder="Enter password again.">
+                <input <?php if ($passwordConfirmERROR){print' required class="mistake"';} ?>type="password" name="fldPasswordConfirm" placeholder="Enter password again.">
                 </br>
                 <input class="button" name="btnSubmit" tabindex="900" type="submit" value="Submit">
                 </br>

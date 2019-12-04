@@ -120,7 +120,7 @@ if (isset($_POST["btnSubmit"])) {
                 <legend>Log In</legend>
                 <input <?php if ($usernameERROR){print' required class="mistake"';} ?>autofocus type="text" name="fldUsername" placeholder="Username" value="<?php echo $username ?>">
                 </br>
-                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="text" name="fldPassword" placeholder="Password">
+                <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="password" name="fldPassword" placeholder="Password">
                 </br>
                 <input class="button" name="btnSubmit" tabindex="900" type="submit" value="Submit">
                 </br>
