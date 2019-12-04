@@ -58,6 +58,10 @@ if (isset($_POST["ProfileToSelectionButton"])) {
     
     header("Location: profile-form.php?username=" . $username);
     
+} else if (isset($_POST["LogOutButton"])) {
+    
+    header("Location: index.php");
+    
 }
 
 ?>
@@ -65,6 +69,7 @@ if (isset($_POST["ProfileToSelectionButton"])) {
     
     <form action="" method="post">
         <button name="ProfileToSelectionButton" id="ProfileToSelectionButton">Back To Matching</button>
+        <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
     </form>
     
     <article class="Profile">
