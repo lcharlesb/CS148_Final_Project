@@ -1,3 +1,8 @@
+html {
+    background-color: #9e9b9b;
+    font-family: 'Didact Gothic';
+}
+
 /*------------------------   standard elements  ----------------------------- */
 h1 {
     text-align: center;
@@ -86,7 +91,15 @@ a.button {
     text-decoration: none;
     color: initial;
 }
-
+.header{
+    text-align: center;
+}
+.instructions{
+    text-align: center;
+}
+.instructions ul{
+    list-style-type: none;
+}
 /*------------------------   by ID  ----------------------------- */
 #profileBio {
     margin: 1% 10% 5% 10%;
@@ -144,7 +157,7 @@ a.button {
 #ProfileToSelectionButton {
     -webkit-appearance: none;
     display: block;
-    margin-left: 90%;
+    margin: auto;
     height: 30px;
     width: 120px;
     border-radius: 6px;
@@ -153,7 +166,7 @@ a.button {
 #SelectionToProfileButton {
     -webkit-appearance: none;
     display: block;
-    margin-left: 90%;
+    margin: auto;
     height: 30px;
     width: 100px;
     border-radius: 6px;
@@ -206,4 +219,9 @@ a.button {
 }
 #admin-table a:visited{
     color:blue;
+}
+#logo {
+    width: 25%;
+    height: 25%;
+    
 }

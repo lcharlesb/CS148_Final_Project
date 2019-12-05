@@ -1,5 +1,5 @@
 <!-- %%%%%%%%%%%%%%%%%%%%%%     Page header   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<header>
-    <h1>Git Together</h1>
+<header class="header">
+    <img src="images/logo.png" id="logo"/>
 </header>
 <!-- %%%%%%%%%%%%%%%%%%%%% Ends Page header   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->

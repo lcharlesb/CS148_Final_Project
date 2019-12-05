@@ -320,13 +320,13 @@ if (isset($_POST["btnNo"])) {
         <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
     </form>
     
-    <article>
+    <article class='instructions'>
         <h2>Instructions: </h2>
-        <ol>
+        <ul>
             <li>Users who fit your interest will be displayed below, one at a time.</li>
             <li>After reviewing their profile, click "Yes!" if you'd be interested in exchanging contact information, or "No." if not.</li>
             <li>Once you've made a decision on another user, you will not be able to view their profile again, so choose wisely!</li>
-        </ol>
+        </ul>
     </article>
         
     <article class="Profile"> 
