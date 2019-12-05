@@ -188,3 +188,22 @@ a.button {
     margin: 10px;
     float: right;
 }
+
+#admin-table table{
+    border-collapse:collapse;
+}
+#admin-table td{
+    border-collapse:collapse;
+    padding:15px;
+}
+#admin-table th{
+    text-align:left;
+    padding:15px;
+}
+
+#admin-table tr:nth-child(even){
+    background-color:#f2f2f2;
+}
+#admin-table a:visited{
+    color:blue;
+}
