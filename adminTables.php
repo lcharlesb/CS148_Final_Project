@@ -13,38 +13,46 @@ if ($thisDatabaseReader->querySecurityOk($query, 0)) {
     $tableNames = $thisDatabaseReader->select($query);
 
 }
-$count1 = 1;
+
 foreach($tableNames as $table){
     print '<h2>' . $table[0] . '</h2>';
-    print '<table>';
+    print '<table id ="admin-table">';
     
+    //Count the number of columns in each table.
+    $query = "SELECT count(*) ";
+    $query .= "FROM information_schema.columns ";
+    $query .= "WHERE table_name = ?";
 
-    $query = 'SHOW COLUMNS FROM ' . $table[0];
+    $tblName = $table[0];
+    $table_array = array($tblName);
+    if ($thisDatabaseReader->querySecurityOk($query, 1)) {
         $query = $thisDatabaseReader->sanitizeQuery($query);
-        $columns = $thisDatabaseReader->select($query);
-        foreach($columns as $column)
-            $numOfCols++;
+        $result = $thisDatabaseReader->select($query,$table_array);
         
+        
+    }
+    $numOfCols = (int) $result[0][0];// num of columns.
 
+
+    // get the names of the colums in each table.
+    $query = 'SHOW COLUMNS FROM ' . $table[0];
+    $query = $thisDatabaseReader->sanitizeQuery($query);
+    $columns = $thisDatabaseReader->select($query);
+    
     $query = 'SELECT ';
-    foreach($columns as $column){
-        if($numOfCols == $count1){
-            $query.= $column["Field"] . " ";
-            
+    for($z = 1; $z <= $numOfCols; $z++){
+        if($z == $numOfCols){
+            $query.= $columns[$z-1]["Field"] . " ";  
         }
         else{
-            $query.= $column["Field"] . ", ";
-            
+            $query.= $columns[$z-1]["Field"] . ", ";
         }
-        $count1++;
     }
-
     $query .= 'FROM ' . $table[0];
 
     if ($thisDatabaseReader->querySecurityOk($query, 0)) {
         $query = $thisDatabaseReader->sanitizeQuery($query);
-        $tableInfo = $thisDatabaseReader->select($query,'');
-        
+        $tableInfo = $thisDatabaseReader->select($query);
         
     }
    
@@ -63,6 +71,7 @@ foreach($tableNames as $table){
             print '<tr>';
             // print each column value for the row.
             for($i = 0; $i < $numOfCols; $i++){
+                
                 print '<td>' . $row[$i] . '</td>';
             }
             print '</tr>';
