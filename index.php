@@ -72,12 +72,6 @@ if (isset($_POST["btnSubmit"])) {
             $passwordERROR = true;
         }
         
-        if ($passwordERROR == false) {
-            if ($queriedPassword['fldAdmin'] == 1 || $queriedPassword['fldAdmin'] == '1') {
-                $isAdmin = true;
-            }
-        }
-        
     }
     
 }

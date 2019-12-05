@@ -301,6 +301,10 @@ if (isset($_POST["btnNo"])) {
     
     header("Location: index.php");
     
+} else if (isset($_POST["AdminTables"])) {
+    
+    header("Location: adminTables.php?username=" . $currUsername);
+    
 }
 
 ?>
@@ -308,6 +312,11 @@ if (isset($_POST["btnNo"])) {
     
     <form action="" method="post">
         <button name="SelectionToProfileButton" id="SelectionToProfileButton">Your Profile</button>
+        <?php
+            if($isAdmin) {
+                print("<button name=\"AdminTables\" id=\"AdminTables\">Admin Tools</button>");
+            }
+        ?>
         <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
     </form>
     
