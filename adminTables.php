@@ -4,7 +4,7 @@ include 'top.php';
 
 if ($isAdmin){
    
-print '<article>';
+print '<article id="adminTablesArticle">';
 
 $query = 'SHOW TABLES';
 $tableNames = '';
@@ -15,8 +15,9 @@ if ($thisDatabaseReader->querySecurityOk($query, 0)) {
 }
 
 foreach($tableNames as $table){
+    print '<HR>';
     print '<h2>' . $table[0] . '</h2>';
-    print '<table id ="admin-table">';
+    print '<table class="admin-table">';
     
     //Count the number of columns in each table.
     $query = "SELECT count(*) ";

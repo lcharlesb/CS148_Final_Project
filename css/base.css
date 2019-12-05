@@ -1,5 +1,5 @@
 html {
-    background-color: #9e9b9b;
+    background-color: #bbbb;
     font-family: 'Didact Gothic';
 }
 
@@ -29,9 +29,14 @@ h1 {
     border: solid;
     width: 50%;
     margin: 5% auto 10% auto;
+    background-color: white;
 }
 
 .Profile h2 {
+    margin: 5% 10% 2% 10%;
+}
+
+.Profile h3 {
     margin: 5% 10% 2% 10%;
 }
 
@@ -100,6 +105,29 @@ a.button {
 .instructions ul{
     list-style-type: none;
 }
+
+.buttonsForm {
+    text-align: center;
+}
+
+.admin-table table{
+    border-collapse:collapse;
+}
+.admin-table td{
+    border-collapse:collapse;
+    padding:15px;
+}
+.admin-table th{
+    text-align:left;
+    padding:15px;
+}
+
+.admin-table tr:nth-child(even){
+    background-color:#f2f2f2;
+}
+.admin-table a:visited{
+    color:blue;
+}
 /*------------------------   by ID  ----------------------------- */
 #profileBio {
     margin: 1% 10% 5% 10%;
@@ -128,6 +156,7 @@ a.button {
 
 #frmProfile {
     border: solid;
+    background-color: white;
 }
 
 #ProfileFormPadTop {
@@ -156,7 +185,7 @@ a.button {
 
 #ProfileToSelectionButton {
     -webkit-appearance: none;
-    display: block;
+    display: inline-block;
     margin: auto;
     height: 30px;
     width: 120px;
@@ -165,7 +194,25 @@ a.button {
 
 #SelectionToProfileButton {
     -webkit-appearance: none;
-    display: block;
+    display: inline-block;
+    margin: auto;
+    height: 30px;
+    width: 100px;
+    border-radius: 6px;
+}
+
+#LogOutButton {
+    -webkit-appearance: none;
+    display: inline-block;
+    margin: auto;
+    height: 30px;
+    width: 100px;
+    border-radius: 6px;
+}
+
+#AdminTables {
+    -webkit-appearance: none;
+    display: inline-block;
     margin: auto;
     height: 30px;
     width: 100px;
@@ -202,26 +249,30 @@ a.button {
     float: right;
 }
 
-#admin-table table{
-    border-collapse:collapse;
-}
-#admin-table td{
-    border-collapse:collapse;
-    padding:15px;
-}
-#admin-table th{
-    text-align:left;
-    padding:15px;
-}
-
-#admin-table tr:nth-child(even){
-    background-color:#f2f2f2;
-}
-#admin-table a:visited{
-    color:blue;
-}
 #logo {
     width: 25%;
     height: 25%;
     
+}
+
+#adminTablesArticle h2{
+    margin: 1% 6%;
+}
+
+#adminTablesArticle table {
+    margin: 0% 6%;
+    border: solid;
+}
+
+#adminTablesArticle table tr:first-child {
+    font-style: italic;
+}
+
+#errors {
+    color: red;
+}
+
+#errors ul {
+    width: 70%;
+    margin: auto;
 }

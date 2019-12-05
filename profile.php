@@ -67,7 +67,7 @@ if (isset($_POST["ProfileToSelectionButton"])) {
 ?>
 <main>  
     
-    <form action="" method="post">
+    <form action="" method="post" class="buttonsForm">
         <button name="ProfileToSelectionButton" id="ProfileToSelectionButton">Back To Matching</button>
         <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
     </form>

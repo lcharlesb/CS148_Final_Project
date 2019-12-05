@@ -310,14 +310,14 @@ if (isset($_POST["btnNo"])) {
 ?>
 <main>
     
-    <form action="" method="post">
+    <form action="" method="post" class="buttonsForm">
         <button name="SelectionToProfileButton" id="SelectionToProfileButton">Your Profile</button>
         <?php
             if($isAdmin) {
                 print("<button name=\"AdminTables\" id=\"AdminTables\">Admin Tools</button>");
             }
         ?>
-        <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
+        <button name="LogOutButton" id="LogOutButton">Log Out</button>
     </form>
     
     <article class='instructions'>
@@ -421,7 +421,7 @@ if (isset($_POST["btnNo"])) {
                 print("<h2>There are no more available profiles to match with.</h2>");
                 
                 if(!empty($matchesRealNames)) {
-                    print("<h2>You've matched with the following people: </h2>");
+                    print("<h3>You've matched with the following people: </h3>");
                     print("<ul>");
 
                     foreach($matchesRealNames as $match) {
@@ -429,6 +429,8 @@ if (isset($_POST["btnNo"])) {
                     }
 
                     print("</ul>");
+                    
+                    print("<h3>More potential matches will appear here as they become available.</h3>");
                 } else {
                     print("<h2>You have not yet matched with anyone.</h2>");
                 }
