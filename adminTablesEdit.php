@@ -5,6 +5,8 @@ include 'top.php';
 
 $table = htmlentities($_GET["table"], ENT_QUOTES, "UTF-8");
 if ($isAdmin){
+    print '<a href="selection.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
+    print '<br>';
     
     if($table == "tblInterests"){
         
