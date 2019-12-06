@@ -19,7 +19,7 @@ if ($thisDatabaseReader->querySecurityOk($query, 0)) {
 
 foreach($tableNames as $table){
     
-    if($table[0] == 'tblInterests' || $table[0]== 'tblUsersInterests'){
+    if($table[0] == 'tblInterests' || $table[0]== 'tblUsersInterests' || $table[0]== 'tblUserMatches'){
         print '<h2>' . $table[0] . '</h2>';
     }
     else{
