@@ -100,11 +100,12 @@ foreach($tableNames as $table){
         
     }
     else{
-        print '<h2>Empty Table</h2>';
+        print '<tr><th>Empty Table</th></tr>';
     }
     
     
     print '</table>';
+    
    
 
 }
@@ -113,3 +114,4 @@ else {
     print '<h2>You are not allowed in this page.</h2>';
     
 }
+    print '</article>';

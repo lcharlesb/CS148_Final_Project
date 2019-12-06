@@ -374,8 +374,6 @@ if ($isAdmin){
 else{
     print '<p>You are not allowed in this page.</p>';
 }
-?>
-</main>
 
-</body>
-</html>
+print '</article>';
+?>
