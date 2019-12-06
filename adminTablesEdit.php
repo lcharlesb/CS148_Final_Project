@@ -105,6 +105,8 @@ if ($isAdmin){
            }
             print PHP_EOL . '<!-- html form -->' . PHP_EOL;
             print '<article id="adminTablesArticle">';
+            print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
+            print '<br>';
             print '<h2>' . $table . '</h2>';
             print '<table class="admin-table">';
             print '<tr>';
@@ -219,6 +221,8 @@ if ($isAdmin){
            }
             print PHP_EOL . '<!-- html form -->' . PHP_EOL;
             print '<article id="adminTablesArticle">';
+            print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
+            print '<br>';
             print '<h2>' . $table . '</h2>';
             print '<form method ="post">';
             print '<table class="admin-table">';
@@ -339,6 +343,7 @@ if ($isAdmin){
             
             print '<article id="adminTablesArticle">';
             print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
+            print '<br>';
             print '<h2>' . $table . '</h2>';
             print '<form method ="post">';
             print '<table class="admin-table">';
