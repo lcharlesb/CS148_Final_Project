@@ -326,6 +326,7 @@ if (isset($_POST["btnNo"])) {
             <li>Users who fit your interest will be displayed below, one at a time.</li>
             <li>After reviewing their profile, click "Yes!" if you'd be interested in exchanging contact information, or "No." if not.</li>
             <li>Once you've made a decision on another user, you will not be able to view their profile again, so choose wisely!</li>
+            <li>If a match is made, both users will be emailed the corresponding user's information.</li>
         </ul>
     </article>
         
