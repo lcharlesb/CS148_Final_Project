@@ -62,6 +62,10 @@ if (isset($_POST["ProfileToSelectionButton"])) {
     
     header("Location: index.php");
     
+} else if (isset($_POST["AdminTables"])) {
+    
+    header("Location: adminTables.php?username=" . $username);
+    
 }
 
 ?>
@@ -69,6 +73,11 @@ if (isset($_POST["ProfileToSelectionButton"])) {
     
     <form action="" method="post" class="buttonsForm">
         <button name="ProfileToSelectionButton" id="ProfileToSelectionButton">Back To Matching</button>
+        <?php
+            if($isAdmin) {
+                print("<button name=\"AdminTables\" id=\"AdminTables\">Admin Tools</button>");
+            }
+        ?>
         <button name="LogOutButton" id="SelectionToProfileButton">Log Out</button>
     </form>
     
