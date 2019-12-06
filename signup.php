@@ -71,9 +71,6 @@ if (isset($_POST["btnSubmit"])) {
 
 ?>
 <main>
-    
-    <article>
-        
         <?php
         
             // Action after submitting
@@ -122,7 +119,7 @@ if (isset($_POST["btnSubmit"])) {
         
         ?>
          
-        <form action="<?php print $phpSelf; ?>"
+        <form action="<?php print PHP_SELF; ?>"
               id="frmRegister"
               class="LogIn"
               method="post">
@@ -130,13 +127,13 @@ if (isset($_POST["btnSubmit"])) {
             <fieldset>
                 <legend>Create an Account</legend>
                 <input <?php if ($usernameERROR){print' required class="mistake"';} ?>autofocus type="text" name="fldUsername" placeholder="Enter username." value="<?php echo $username ?>">
-                </br>
+                <br>
                 <input <?php if ($passwordERROR){print' required class="mistake"';} ?>type="password" name="fldPassword" placeholder="Enter password.">
-                </br>
+                <br>
                 <input <?php if ($passwordConfirmERROR){print' required class="mistake"';} ?>type="password" name="fldPasswordConfirm" placeholder="Enter password again.">
-                </br>
+                <br>
                 <input class="button" name="btnSubmit" tabindex="900" type="submit" value="Submit">
-                </br>
+                <br>
                 <a href="index.php">Have an account? Login here.</a>
             </fieldset>
         
@@ -145,9 +142,7 @@ if (isset($_POST["btnSubmit"])) {
         <?php
             } // ends body submit
         ?>
-        
-    </article>
-    
+
 </main>
 
 </body>
