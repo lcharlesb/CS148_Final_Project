@@ -89,10 +89,7 @@ h1 {
 }
 
 a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
     appearance: button;
-
     text-decoration: none;
     color: initial;
 }
@@ -129,7 +126,6 @@ a.button {
     color:blue;
 }
 .adminTablesEdit{
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -139,7 +135,6 @@ a.button {
     
 }
 .adminTables{
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -197,7 +192,6 @@ a.button {
 }
 
 #btnSubmit {
-    -webkit-appearance: none;
     float: right;
     margin-bottom: 10px; 
     height: 30px;
@@ -206,7 +200,6 @@ a.button {
 }
 
 #ProfileToSelectionButton {
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -215,7 +208,6 @@ a.button {
 }
 
 #SelectionToProfileButton {
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -224,7 +216,6 @@ a.button {
 }
 
 #LogOutButton {
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -233,7 +224,6 @@ a.button {
 }
 
 #AdminTables {
-    -webkit-appearance: none;
     display: inline-block;
     margin: auto;
     height: 30px;
@@ -242,7 +232,6 @@ a.button {
 }
 
 #btnYes {
-    -webkit-appearance: none;
     height: 30px;
     width: 70px;
     border-radius: 6px;
@@ -250,7 +239,6 @@ a.button {
 }
 
 #btnNo {
-    -webkit-appearance: none;
     height: 30px;
     width: 70px;
     border-radius: 6px;
@@ -263,7 +251,6 @@ a.button {
 }
 
 #editProfileButton {
-    -webkit-appearance: none;
     height: 30px;
     width: 70px;
     border-radius: 6px;
