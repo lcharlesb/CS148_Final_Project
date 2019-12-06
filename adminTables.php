@@ -2,8 +2,11 @@
 
 include 'top.php';
 
+
 if ($isAdmin){
-   
+
+$user = htmlentities($_GET["username"], ENT_QUOTES, "UTF-8");
+$add = (int)htmlentities($_GET["add"], ENT_QUOTES, "UTF-8");
 print '<article id="adminTablesArticle">';
 
 $query = 'SHOW TABLES';
@@ -15,8 +18,14 @@ if ($thisDatabaseReader->querySecurityOk($query, 0)) {
 }
 
 foreach($tableNames as $table){
-    print '<HR>';
-    print '<h2>' . $table[0] . '</h2>';
+    
+    if($table[0] == 'tblInterests' || $table[0]== 'tblUsersInterests'){
+        print '<h2>' . $table[0] . '</h2>';
+    }
+    else{
+        print '<h2>' . $table[0] . '<a href="adminTablesEdit.php?username=' . $user .'&table='. $table[0] .'"> [Edit] </a></h2>';
+    }
+    
     print '<table class="admin-table">';
     
     //Count the number of columns in each table.
@@ -60,11 +69,12 @@ foreach($tableNames as $table){
     if (!empty($tableInfo)){
         $th = '<tr>';
         $td = '<tr>';
-        // foreach loop that represents the number of columns (i = 0; i < numOfCols; i++)
+        $count1 = 0;
+        // for loop for headings of the table (i = 0; i < numOfCols; i++)
         foreach($columns as $column){
-            $th .= '<th>' . $column["Field"] . "</th>";
-            
-        }
+       
+                $th .= '<th>' . $column["Field"] . "</th>";
+        } 
         $th .= "</tr>";
         print $th;
         // for every row in the table
@@ -73,13 +83,22 @@ foreach($tableNames as $table){
             // print each column value for the row.
             for($i = 0; $i < $numOfCols; $i++){
                 
-                print '<td>' . $row[$i] . '</td>';
+                    print '<td>' . $row[$i] . '</td>';
+                
             }
             print '</tr>';
         }
+        if($table[0] == 'tblInterests' ){
+            print '<tr>';
+            print '<td><a href="adminTablesEdit.php?username='. $user . '&table='. $table[0] .'"> [Add Row] </a></td>';
+            print '</tr>';
+        }
+            
+        
+        
     }
     else{
-        print 'Empty Table.';
+        print '<h2>Empty Table</h2>';
     }
     
     
@@ -89,5 +108,6 @@ foreach($tableNames as $table){
 }
 } //admin bracket
 else {
-    print 'You are not allowed in this page.';
+    print '<h2>You are not allowed in this page.</h2>';
+    
 }
