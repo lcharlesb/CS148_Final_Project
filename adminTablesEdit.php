@@ -3,10 +3,12 @@
 
 include 'top.php';
 
+print '<article id="adminTablesArticle">';
+print '<a href="adminTables.php?username='. $_GET["username"] .'"><button class="adminTables">Go Back</button></a>';
+print '<br>';
 $table = htmlentities($_GET["table"], ENT_QUOTES, "UTF-8");
 if ($isAdmin){
-    print '<a href="selection.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
-    print '<br>';
+    
     
     if($table == "tblInterests"){
         
@@ -106,8 +108,7 @@ if ($isAdmin){
                 print '</div>' . PHP_EOL;
            }
             print PHP_EOL . '<!-- html form -->' . PHP_EOL;
-            print '<article id="adminTablesArticle">';
-            print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
+            
             print '<br>';
             print '<h2>' . $table . '</h2>';
             print '<table class="admin-table">';
@@ -125,7 +126,7 @@ if ($isAdmin){
             print '<form method ="post">';
             print '<label> New Interest: </label><br>';
             print '<input type= text name="txtInterest"></input>';
-            print '<input type="submit" id="AdminTablesEdit" name="btnSubmit" value="Submit" tabindex="900" class="button">';
+            print '<input type="submit" name="btnSubmit" value="Submit" tabindex="900" class="adminTablesEdit">';
             print '</form>';
         }
     }
@@ -223,8 +224,8 @@ if ($isAdmin){
            }
             print PHP_EOL . '<!-- html form -->' . PHP_EOL;
             print '<article id="adminTablesArticle">';
-            print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
-            print '<br>';
+
+
             print '<h2>' . $table . '</h2>';
             print '<form method ="post">';
             print '<table class="admin-table">';
@@ -240,7 +241,7 @@ if ($isAdmin){
             print '</table>';
             print '<br>';
             
-            print '<input type="submit" id="AdminTablesEdit" name="btnSubmit" value="Delete" tabindex="900" class="button">';
+            print '<input type="submit" name="btnSubmit" value="Delete" tabindex="900" class="adminTablesEdit">';
             print '</form>';
 
 
@@ -344,8 +345,7 @@ if ($isAdmin){
             print PHP_EOL . '<!-- html form -->' . PHP_EOL;
             
             print '<article id="adminTablesArticle">';
-            print '<a href="adminTables.php?username='. $_GET["username"] .'"><button id="AdminTablesEdit" class="button">Go Back</button></a>';
-            print '<br>';
+
             print '<h2>' . $table . '</h2>';
             print '<form method ="post">';
             print '<table class="admin-table">';
@@ -361,7 +361,7 @@ if ($isAdmin){
             print '</table>';
             print '<br>';
             
-            print '<input type="submit" id="AdminTablesEdit" name="btnSubmit" value="Delete" tabindex="900" class="button">';
+            print '<input type="submit" class="adminTablesEdit" name="btnSubmit" value="Delete" tabindex="900" >';
             print '</form>';
             
             
