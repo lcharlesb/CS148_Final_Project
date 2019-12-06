@@ -2,6 +2,8 @@
 
 include 'top.php';
 
+print '<a href="selection.php?username='. $_GET["username"] .'"><button class="adminTables">Go Back</button></a>';
+print '<br>';
 
 if ($isAdmin){
 
