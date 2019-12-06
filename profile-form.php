@@ -211,15 +211,15 @@ print PHP_EOL . '<!-- display form -->' . PHP_EOL;
         <fieldset id="ProfileFormRadioButtons">
             <legend><b> Interested in: </b></legend>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"|| $profileData[0]["fldPreference"] == "Male"){print 'checked';}?> checked>
+                <input id = "radioButton4" type="radio" name="radioPreference" value="Male" <?php if($_POST["radioPreferece"]=="Male"|| $profileData[0]["fldPreference"] == "Male"){print ' checked';}?> checked>
                 <label for= "radioButton4">Male</label>
             </fieldset>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"|| $profileData[0]["fldPreference"] == "Female"){print 'checked';}?>>
+                <input id = "radioButton5" type="radio" name="radioPreference" value="Female" <?php if($_POST["radioPreferece"]=="Female"|| $profileData[0]["fldPreference"] == "Female"){print ' checked';}?>>
                 <label for= "radioButton5">Female</label>
             </fieldset>
             <fieldset class="ProfileFormRadioButtonWithLabel ProfileFormMarginLeft">
-                <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"|| $profileData[0]["fldPreference"] == "Other"){print 'checked';}?>>
+                <input id = "radioButton6" type="radio" name="radioPreference" value="Other"<?php if($_POST["radioPreferece"]=="Other"|| $profileData[0]["fldPreference"] == "Other"){print ' checked';}?>>
                 <label for= "radioButton6">Other</label>
             </fieldset>  
         </fieldset>
