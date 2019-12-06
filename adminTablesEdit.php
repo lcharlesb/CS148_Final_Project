@@ -248,7 +248,7 @@ if ($isAdmin){
             print '</pre>';
         }
         print PHP_EOL . '<!-- form variables -->' . PHP_EOL;
-        $pmkUsername = '';
+        
 
         $query = 'SELECT pmkUsername, fldPassword, fldAdmin ';
         $query .= 'FROM tblUsers';
@@ -259,6 +259,103 @@ if ($isAdmin){
             
         }
         $userCount = count($users);
+        $pmkUsername = '';
+
+        print PHP_EOL . '<!-- error flags -->' . PHP_EOL;
+
+        $pmkUsernameERROR = false;
+
+        print PHP_EOL . '<!-- debugging setup -->' . PHP_EOL;
+
+        $errorMsg = array();
+        $dataEntered = false;
+
+        print PHP_EOL . '<!-- process after user hits submit -->' . PHP_EOL;
+
+        if (isset($_POST['btnSubmit'])) {
+            print PHP_EOL . '<!-- Security -->' . PHP_EOL;
+            $thisURL = DOMAIN . PHP_SELF;
+            
+            if (!securityCheck($thisURL)) {
+                $msg = '<p>Sorry you cannot access this page.</p>';
+                $msg.= '<p>Security breach detected and reported.</p>';
+                die($msg);
+            }
+            print PHP_EOL . '<!-- sanitize data -->' . PHP_EOL;
+
+            
+            for($c = 0; $c < $userCount; $c++){
+                $pmkUsername = htmlentities($_POST["checkbox" . $c], ENT_QUOTES, "UTF-8");
+                if (!empty($pmkUsername)){
+                    $pmkUserArray[] = $pmkUsername;  
+                }
+                
+            }
+            print PHP_EOL . '<!-- validation -->' . PHP_EOL;
+            
+            
+            print PHP_EOL . '<!-- process for when form is passed -->' . PHP_EOL;
+    
+            if (!$errorMsg) {
+                if (DEBUG) {
+                    print "<p>Form is valid</p>";
+                }
+                
+                print PHP_EOL . '<!-- save data -->' . PHP_EOL;
+                $query = 'DELETE FROM tblUsers ';
+                $query .= 'WHERE pmkUsername IN (';
+                for($d = 1; $d < $userCount-1;$d++){
+                    $query.= '?, ';
+                }
+                $query .= '?)';
+                print $query;
+                print_r($pmkUserArray);
+                $delete = $thisDatabaseWriter->delete($query, $pmkUserArray);
+                
+                $dataEntered = true;
+            } 
+
+
+        } 
+        print PHP_EOL . '<!-- display form -->' . PHP_EOL;
+        if ($dataEntered) { // closing of if marked with: end body submit
+            print "<h2>Record Saved</h2> ";
+        }else {
+
+            print PHP_EOL . '<!-- display error messages. -->' . PHP_EOL;
+            
+            if ($errorMsg) {    
+               print '<div id="errors">' . PHP_EOL;
+               print '<h2>Your form has the following mistakes that need to be fixed.</h2>' . PHP_EOL;
+               print '<ol>' . PHP_EOL;
+               foreach ($errorMsg as $err) {
+                   print '<li>' . $err . '</li>' . PHP_EOL;       
+               }
+                print '</ol>' . PHP_EOL;
+                print '</div>' . PHP_EOL;
+           }
+            print PHP_EOL . '<!-- html form -->' . PHP_EOL;
+            print '<article id="adminTablesArticle">';
+            print '<h2>' . $table . '</h2>';
+            print '<form method ="post">';
+            print '<table class="admin-table">';
+            print '<tr>';
+            print '<th></th><th>pmkUsername</th><th>fnkUsername</th><th>fldAdmin</th>';
+            print '</tr>';
+            $td = '';
+            
+            for($w = 0; $w < $userCount; $w++){
+                $td .= '<tr><td><input type="checkbox" name="checkbox' . $w . '" value="'. $users[$w][0] .'"></input></td><td>' . $users[$w][0] . '</td><td>' . $users[$w][1] . '</td><td>' . $users[$w][2] . '</td>';
+            }
+            print $td;
+            print '</table>';
+            print '<br>';
+            
+            print '<input type="submit" id="" name="btnSubmit" value="Delete" tabindex="900" class="button">';
+            print '</form>';
+
+
+        }
     }
     print '</article>';
 }
