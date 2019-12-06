@@ -79,7 +79,6 @@ if (isset($_POST["btnSubmit"])) {
 ?>
 <main>
     
-    <article>
         
         <?php
             // Action after submitting
@@ -105,7 +104,7 @@ if (isset($_POST["btnSubmit"])) {
         
         ?>
         
-        <form action="<?php print $phpSelf; ?>"
+        <form action="<?php print PHP.SELF; ?>"
               id="frmRegister"
               class="LogIn"
               method="post">
@@ -127,7 +126,6 @@ if (isset($_POST["btnSubmit"])) {
             } // ends body submit
         ?>
         
-    </article>
     
 </main>
 
