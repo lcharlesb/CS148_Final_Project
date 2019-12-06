@@ -218,6 +218,15 @@ a.button {
     width: 100px;
     border-radius: 6px;
 }
+#AdminTablesEdit{
+    -webkit-appearance: none;
+    display: inline-block;
+    margin: auto;
+    height: 30px;
+    width: 100px;
+    border-radius: 6px;
+    margin: 0% 6%;
+}
 
 #btnYes {
     -webkit-appearance: none;
