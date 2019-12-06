@@ -104,7 +104,7 @@ if (isset($_POST["btnSubmit"])) {
         
         ?>
         
-        <form action="<?php print PHP.SELF; ?>"
+        <form action="<?php print PHP_SELF; ?>"
               id="frmRegister"
               class="LogIn"
               method="post">
