@@ -124,8 +124,8 @@ if ($isAdmin){
             print '</table>';
             print '<br>';
             print '<form method ="post">';
-            print '<label> New Interest: </label><br>';
-            print '<input type= text name="txtInterest"></input>';
+            print '<label class ="adminTablesEdit"> New Interest: </label><br>';
+            print '<input type= text name="txtInterest" class ="adminTablesEdit"></input>';
             print '<input type="submit" name="btnSubmit" value="Submit" tabindex="900" class="adminTablesEdit">';
             print '</form>';
         }
@@ -181,6 +181,7 @@ if ($isAdmin){
                 }
                 
             }
+            $sizeOfCheckboxArray = count($pmkArray);
             print PHP_EOL . '<!-- validation -->' . PHP_EOL;
             
             
@@ -194,7 +195,7 @@ if ($isAdmin){
                 print PHP_EOL . '<!-- save data -->' . PHP_EOL;
                 $query = 'DELETE FROM tblProfile ';
                 $query .= 'WHERE pmkProfileId IN (';
-                for($b = 1; $b < $profileCount-1;$b++){
+                for($b = 1; $b < $sizeOfCheckboxArray;$b++){
                     $query.= '?, ';
                 }
                 $query .= '?)';
@@ -298,6 +299,7 @@ if ($isAdmin){
                 }
                 
             }
+            $sizeOfUserArray = count($pmkUserArray);
             print PHP_EOL . '<!-- validation -->' . PHP_EOL;
             
             
@@ -311,12 +313,11 @@ if ($isAdmin){
                 print PHP_EOL . '<!-- save data -->' . PHP_EOL;
                 $query = 'DELETE FROM tblUsers ';
                 $query .= 'WHERE pmkUsername IN (';
-                for($d = 1; $d < $userCount-1;$d++){
+                for($d = 1; $d < $sizeOfUserArray;$d++){
                     $query.= '?, ';
                 }
                 $query .= '?)';
-                print $query;
-                print_r($pmkUserArray);
+                
                 $delete = $thisDatabaseWriter->delete($query, $pmkUserArray);
                 
                 $dataEntered = true;
